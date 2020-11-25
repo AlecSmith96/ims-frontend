@@ -13,6 +13,7 @@ const Dashboard = () => {
                 <div>
                     <p>Authenticated</p>
                     <p> stored access token: {state.access_token} </p>
+                    <p> refresh token: {state.refresh_token}</p>
                 </div>
                             :
                 <p>Not Authenticated</p>

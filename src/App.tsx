@@ -14,7 +14,15 @@ function App() {
   return (
     <div>
       <Navbar className='bg-dark'>
-          <Navbar.Brand className='text-white' href="#home">[IMS-Name]</Navbar.Brand>
+          <Navbar.Brand className='text-white' href="#home">
+          <img
+            src={process.env.PUBLIC_URL+"/AgileInventoryLogo.png"}
+            width="159"
+            height="50"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
+          </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
         {name !== 'null' ?

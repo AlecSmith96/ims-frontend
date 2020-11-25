@@ -24,6 +24,7 @@ const LoginCallback: FC<RouteComponentProps> = ({ location }) => {
         authenticated: true,
         access_token: response.access_token,
         token_type: response.token_type,
+        refresh_token: response.refresh_token,
         expires_in: response.expires_in,
         scope: response.scope
       }});
