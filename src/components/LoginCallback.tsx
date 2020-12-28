@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { RouteComponentProps, useHistory } from "react-router-dom";
 import Dashboard from "./Dashboard";
+import jwt_decode from "jwt-decode";
 
 const LoginCallback: FC<RouteComponentProps> = ({ location }) => {
   const history = useHistory();
@@ -20,8 +21,10 @@ const LoginCallback: FC<RouteComponentProps> = ({ location }) => {
     }})
     .then(res => res.json())
     .then(response => {
+      var decode = jwt_decode(response.access_token);
       history.push({pathname: '/dashboard', state: {
         authenticated: true,
+        user: decode,
         access_token: response.access_token,
         token_type: response.token_type,
         refresh_token: response.refresh_token,
