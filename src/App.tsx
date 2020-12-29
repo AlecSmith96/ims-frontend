@@ -1,18 +1,12 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Navbar, Button} from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginCallback from './components/LoginCallback';
 import Dashboard from './components/Dashboard';
 
 function App() {
   const [name, setName] = useState('');
-  const history = useHistory();
-
-  function handleLogin() {
-    history.push('/login');
-  }
 
   return (
     <div>
@@ -28,17 +22,19 @@ function App() {
           </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-        {name !== 'null' ?
+        {name === '' ?
           <Navbar.Text  className='text-white'>Not signed in: <Button  className='text-white' href='/login' variant="outline-info">Sign In</Button></Navbar.Text> :
-          <Navbar.Text  className='text-white'>Signed in as: <a  className='text-white' href="#login">Mark Otto</a></Navbar.Text> }
+          <Navbar.Text  className='text-white'>Signed in as: {name} <Button  className='text-white' href='/login' variant="outline-info">Sign Out</Button></Navbar.Text> }
         </Navbar.Collapse>
       </Navbar>
+      
       <Router>
         <Switch>
           <Route path="/login" component={() => { window.location.href = 'http://localhost:9090/oauth/authorize?response_type=code&client_id=client2&scope=read'; return null; }} />
           <Route path="/oauth_callback" component={LoginCallback} />
           <Route path="/dashboard" exact component={Dashboard} />
         </Switch>
+        <Dashboard updateUsername={(username: React.SetStateAction<string>) => setName(username)}/>
       </Router>
     </div>
   );
