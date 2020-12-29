@@ -7,6 +7,13 @@ const Dashboard = (props) => {
     useEffect(() => {
         if (state) {
             props.updateUsername(state.user.user_name);
+            props.updateUser(state.user);
+            props.updateAuthenticated(state.authenticated);
+            props.updateAccessToken(state.access_token);
+            props.updateTokenType(state.token_type);
+            props.updateRefreshToken(state.refresh_token);
+            props.updateExpiresIn(state.expires_in);
+            props.updateScope(state.scope);
         }
     })
 
