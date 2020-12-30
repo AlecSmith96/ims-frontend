@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
+import {Link, useHistory} from 'react-router-dom';
 
 const ProductLookup = (props) => {
+    const history = useHistory();
     const [products, setProducts] = useState([{}]);
     const [searchTerm, setSearchTerm] = React.useState('');
     const [searchResults, setSearchResults] = React.useState([{}]);
@@ -20,6 +23,10 @@ const ProductLookup = (props) => {
             .then((data) => {setProducts(data)})
             .catch(console.error());
     }, []);
+
+    const handleClick = (product) => {
+        history.push({pathname:`/product/${product.id}`, state: product});
+    }
 
     return (
         <>
@@ -41,12 +48,12 @@ const ProductLookup = (props) => {
             {
                 searchResults.map((product) => {
                     return (
-                    <tr key={product.id}>
-                        <td>{product.name}</td>
-                        <td>{product.sku}</td>
-                        <td>{product.inventory_on_hand}</td>
-                        <td>{product.reorder_threshold}</td>
-                    </tr>
+                        <tr key={product.id} onClick={() => handleClick(product)}>
+                            <td>{product.name}</td>
+                            <td>{product.sku}</td>
+                            <td>{product.inventory_on_hand}</td>
+                            <td>{product.reorder_threshold}</td>
+                        </tr>
                     )
                 })
             }

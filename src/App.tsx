@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import LoginCallback from './components/LoginCallback';
 import Dashboard from './components/Dashboard';
 import ProductLookup from './components/ProductLookup';
+import ProductDetails from './components/ProductDetails';
 
 function App() {
   //Setting global state for application
@@ -53,6 +54,7 @@ function App() {
                     updateTokenType={(token_type: React.SetStateAction<string>) => setTokenType(token_type)} updateRefreshToken={(refresh_token: React.SetStateAction<string>) => setRefreshToken(refresh_token)}
                     updateExpiresIn={(expires_in: React.SetStateAction<string>) => setExpiresIn(expires_in)} updateScope={(scope: React.SetStateAction<string>) => setScope(scope)}/>} />
           <Route path="/lookup" component={() => <ProductLookup />}/>
+          <Route path="/product/:id" component={ProductDetails} />
         </Switch>
       </Router>
     </div>
