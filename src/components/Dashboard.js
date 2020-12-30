@@ -23,10 +23,12 @@ const Dashboard = (props) => {
             <p> Dashboard </p>
             { state && state.authenticated ?
                 <div>
-                    <p>Authenticated</p>
+                    <p> Authenticated</p>
+                    <p> token_type: {state.token_type}</p>
                     <p> stored access token: {state.access_token} </p>
+                    <p> expires_in: {state.expires_in}</p>
+                    <p> scope: {state.scope}</p>
                     <p> refresh token: {state.refresh_token}</p>
-                    <p> user: {state.user.user_name}</p>
                 </div>
                             :
                 <p>Not Authenticated</p>
