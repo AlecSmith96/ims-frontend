@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const ProductLookup = (props) => {
     const history = useHistory();
@@ -13,11 +13,11 @@ const ProductLookup = (props) => {
         setSearchResults(results);
       };
 
-    useEffect(() => {
+    useEffect(() => {   // After render send call to resource server to return all products from db
         fetch('http://localhost:8080/api/products', {
             method: 'GET',
             headers: {
-            'Authorization': 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDkzNjcxMzQsInVzZXJfbmFtZSI6ImFsZWMiLCJhdXRob3JpdGllcyI6WyJyZWFkIl0sImp0aSI6IjU4N2Y0ZWJmLThlZDgtNDRiNi1iYjE3LWJkZDlhNDY1YTEwMyIsImNsaWVudF9pZCI6ImNsaWVudDIiLCJzY29wZSI6WyJyZWFkIl19.akppqVeFAgSDX_o_0xOE_Pvv5jNJbhSmaDTuQxqUUcI'
+            'Authorization': `bearer ${localStorage.getItem('access_token')}`
             }})
             .then(res => res.json())
             .then((data) => {setProducts(data)})
@@ -31,6 +31,12 @@ const ProductLookup = (props) => {
     return (
         <>
             <p>Product Lookup</p>
+            <form className="container form-inline md-form mr-auto col-md-10">
+                <input className="form-control mr-sm-2" type="text" placeholder="Enter Sku" aria-label="Search"/>
+                <Button className="btn btn-rounded btn-sm my-0" variant="outline-info" type="submit">Search</Button>
+                <label htmlFor="name" className="col-sm-2 col-form-label text-middle">Or </label>
+            </form>
+            <br/>
         <div className="container col-md-10">
         <input className="form-control mb-4" id="tableSearch" type="text"
             placeholder="Search for a product" value={searchTerm} onChange={handleChange}/>

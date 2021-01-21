@@ -6,29 +6,27 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         if (state) {
-            props.updateUsername(state.user.user_name);
-            props.updateUser(state.user);
-            props.updateAuthenticated(state.authenticated);
-            props.updateAccessToken(state.access_token);
-            props.updateTokenType(state.token_type);
-            props.updateRefreshToken(state.refresh_token);
-            props.updateExpiresIn(state.expires_in);
-            props.updateScope(state.scope);
+            localStorage.setItem("authenticated", "true");
+            localStorage.setItem("user_name", state.user.user_name);
+            localStorage.setItem('access_token', state.access_token);
+            localStorage.setItem('token_type', state.token_type);
+            localStorage.setItem('refresh_token', state.refresh_token);
+            localStorage.setItem('expires_in', state.expires_in);
+            localStorage.setItem('scope', state.scope);
         }
     })
 
-    // COULD USE REDUX TO STORE USER INFO ACROSS COMPONENTS
     return (
         <div>
             <p> Dashboard </p>
-            { state && state.authenticated ?
+            { localStorage.getItem('authenticated') === 'true' ?
                 <div>
                     <p> Authenticated</p>
-                    <p> token_type: {state.token_type}</p>
-                    <p> stored access token: {state.access_token} </p>
-                    <p> expires_in: {state.expires_in}</p>
-                    <p> scope: {state.scope}</p>
-                    <p> refresh token: {state.refresh_token}</p>
+                    <p> token_type: {localStorage.getItem('token_type')}</p>
+                    <p> stored access token: {localStorage.getItem('access_token')} </p>
+                    <p> expires_in: {localStorage.getItem('expires_in')}</p>
+                    <p> scope: {localStorage.getItem('scope')}</p>
+                    <p> refresh token: {localStorage.getItem('refresh_token')}</p>
                 </div>
                             :
                 <p>Not Authenticated</p>
