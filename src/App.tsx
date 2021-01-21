@@ -27,6 +27,9 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link className="text-white" href="/dashboard">Dashboard</Nav.Link>
             <Nav.Link className="text-white" href="/lookup">Product Lookup</Nav.Link>
+            <Nav.Link className="text-white" href="/lookup">Customer Orders</Nav.Link>
+            <Nav.Link className="text-white" href="/lookup">Supplier Orders</Nav.Link>
+            <Nav.Link className="text-white" href="/lookup">Reports</Nav.Link>
           </Nav>
         {localStorage.getItem('user_name') === null ?
           <Navbar.Text  className='text-white'>Not signed in: <Button  className='text-white' href='/login' variant="outline-info">Sign In</Button></Navbar.Text> :

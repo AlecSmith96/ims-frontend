@@ -46,6 +46,7 @@ const ProductLookup = (props) => {
             <tr>
                 <th>Name</th>
                 <th>sku</th>
+                <th>price</th>
                 <th>Inventory On Hand</th>
                 <th>Reorder Threshold</th>
             </tr>
@@ -57,6 +58,7 @@ const ProductLookup = (props) => {
                         <tr key={product.id} onClick={() => handleClick(product)}>
                             <td>{product.name}</td>
                             <td>{product.sku}</td>
+                            <td>{product.price}</td>
                             <td>{product.inventory_on_hand}</td>
                             <td>{product.reorder_threshold}</td>
                         </tr>
