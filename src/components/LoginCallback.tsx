@@ -7,14 +7,12 @@ const LoginCallback: FC<RouteComponentProps> = ({ location }) => {
 
   useEffect(() => {
     const code = (location.search.match(/code=([^&]+)/) || [])[1];
-    const scope = (location.search.match(/scope=([^&]+)/) || [])[1];
-    const grant_type = (location.search.match(/grant_type=([^&]+)/) || [])[1];
-    console.log(`scope: ${scope}, grant_type: ${grant_type}`);
     const qParams = [
       `grant_type=authorization_code`,
       `scope=read`,
       `code=${code}`
     ].join("&");
+
     fetch(`http://localhost:9090/oauth/token?${qParams}`, {
     // credentials: "include",
     method: 'POST',

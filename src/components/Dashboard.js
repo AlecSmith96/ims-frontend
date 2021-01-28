@@ -5,6 +5,7 @@ const Dashboard = (props) => {
     const {state} = useLocation();
 
     useEffect(() => {
+        // set user credentials 
         if (state) {
             localStorage.setItem("authenticated", "true");
             localStorage.setItem("user_name", state.user.user_name);
@@ -14,7 +15,19 @@ const Dashboard = (props) => {
             localStorage.setItem('expires_in', state.expires_in);
             localStorage.setItem('scope', state.scope);
         }
-    })
+
+        // get user authorities
+        fetch(`http://localhost:9090/oauth/check_token?token=${localStorage.getItem("access_token")}`, {
+        method: 'POST',
+        headers: {
+        'Authorization': 'Basic Y2xpZW50MjpzZWNyZXQy'
+        }})
+        .then(res => res.json())
+        .then(response => {
+            localStorage.setItem('authorities', response.authorities);
+        })
+        .catch(console.error);
+        })
 
     return (
         <div>
