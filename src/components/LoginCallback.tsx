@@ -22,6 +22,13 @@ const LoginCallback: FC<RouteComponentProps> = ({ location }) => {
     .then(res => res.json())
     .then(response => {
       var decode = jwt_decode(response.access_token);
+      localStorage.setItem("authenticated", "true");
+      localStorage.setItem("user", JSON.stringify(decode));
+      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('token_type', response.token_type);
+      localStorage.setItem('refresh_token', response.refresh_token);
+      localStorage.setItem('expires_in', response.expires_in);
+      localStorage.setItem('scope', response.scope);
       history.push({pathname: '/dashboard', state: {
         authenticated: true,
         user: decode,
