@@ -7,6 +7,8 @@ const ProductLookup = (props) => {
     const [products, setProducts] = useState([{}]);
     const [searchTerm, setSearchTerm] = React.useState('');
     const [searchResults, setSearchResults] = React.useState([{}]);
+
+    // Filter all products by characters found in text box
     const handleChange = e => {
         setSearchTerm(e.target.value);
         const results = products.filter(product => product.name.toString().toLowerCase().includes(e.target.value));
@@ -24,6 +26,7 @@ const ProductLookup = (props) => {
             .catch(console.error());
     }, []);
 
+    // Navigate to product details page
     const handleClick = (product) => {
         history.push({pathname:`/product/${product.id}`, state: product});
     }
