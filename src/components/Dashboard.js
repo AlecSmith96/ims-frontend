@@ -21,6 +21,7 @@ const Dashboard = (props) => {
             var userObj = JSON.parse(localStorage.getItem("user"));
             localStorage.setItem("user_name", userObj.user_name);
             localStorage.setItem("authorities", userObj.authorities);
+            props.setStatus('logged in');
         }
         })
 
