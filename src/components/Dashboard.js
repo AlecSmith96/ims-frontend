@@ -27,19 +27,16 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            <p> Dashboard </p>
+            <center>
             { localStorage.getItem('authenticated') === 'true' ?
                 <div>
-                    <p> Authenticated</p>
-                    <p> token_type: {localStorage.getItem('token_type')}</p>
-                    <p> stored access token: {localStorage.getItem('access_token')} </p>
-                    <p> expires_in: {localStorage.getItem('expires_in')}</p>
-                    <p> scope: {localStorage.getItem('scope')}</p>
-                    <p> refresh token: {localStorage.getItem('refresh_token')}</p>
+                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
+                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
                 </div>
                             :
-                <p>Not Authenticated</p>
+                <h2>Please Sign In</h2>
             }
+            </center>
         </div>
     );
 }

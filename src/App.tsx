@@ -39,7 +39,7 @@ function App() {
             }
         {localStorage.getItem('user_name') === null ?
           <Navbar.Text  className='text-white'>Not signed in: <Button  className='text-white' href='/login' variant="outline-info">Sign In</Button></Navbar.Text> :
-          <Navbar.Text  className='text-white'>Signed in as: {localStorage.getItem('user_name')} <Button onClick={() => {localStorage.clear(); updateStatus('logged out')}} className='text-white' href='/' variant="outline-info">Sign Out</Button></Navbar.Text> }
+          <Navbar.Text  className='text-white'>Signed in as: {localStorage.getItem('user_name')} <Button onClick={() => {localStorage.clear(); updateStatus('logged out'); }} href="/logout" className='text-white' variant="outline-info">Sign Out</Button></Navbar.Text> }
         </Navbar.Collapse>
       </Navbar>
       {/* SIGN OUT BUTTON WORKS, BUT USER CREDENTIALS STILL STORED IN LOCAL STORAGE */}
@@ -49,6 +49,7 @@ function App() {
         <Switch>
           <Redirect from="/" to="/dashboard" exact />
           <Route path="/login" component={() => { window.location.href = 'http://localhost:9090/oauth/authorize?response_type=code&client_id=client2&scope=read'; return null; }} />
+          <Route path="/logout" component={() => { window.location.href = 'http://localhost:9090/logout'; return null; }} />
           <Route path="/oauth_callback" component={LoginCallback} />
           <Route path="/dashboard" component={() => <Dashboard setStatus={(status: React.SetStateAction<string>) => updateStatus(status)}/>} />
           <Route path="/lookup" component={() => <ProductLookup />}/>
