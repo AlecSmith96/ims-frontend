@@ -29,12 +29,14 @@ const Dashboard = (props) => {
         <div>
             <center>
             { localStorage.getItem('authenticated') === 'true' ?
-                <div>
+                <div className="jumbotron align-middle col-md-6">
                     <h2> Welcome {localStorage.getItem('user_name')}</h2>
                     <h3>Authority: {localStorage.getItem('authorities')}</h3>
                 </div>
                             :
-                <h2>Please Sign In</h2>
+                <div className="jumbotron align-middle col-md-6">
+                    <h2>Please Sign In</h2>
+                </div>
             }
             </center>
         </div>

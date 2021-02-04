@@ -13,9 +13,7 @@ const OrderDetails = () => {
         <div>
             <div className="row col-md-10">
                 <div>
-                    <Button className='btn btn-rounded my-0' href='/orders' variant="outline-info">
-                        <span className="glyphicon glyphicon-star" aria-hidden="true"></span>Back
-                    </Button>
+                    <Button className='btn btn-rounded my-0' href='/orders' variant="outline-info">Back</Button>
                 </div>
 
                 <div className="col-md-1"></div>
@@ -25,7 +23,7 @@ const OrderDetails = () => {
             <div className="container col-md-10">
                 <div className="row">
                     <div className="col">
-                        <div className="jumbotron">
+                        <div className="jumbotron h-100 w-100 d-inline-block">
                             <h5 className="card-title">{`${state.customer.title} ${state.customer.first_name} ${state.customer.last_name}`}</h5>
                             <p className="lead">Order Date: {state.order_date}</p>
                             <p className="lead">Status: {state.arrival_date ? 'DELIVERED' : 'PENDING'}</p>
