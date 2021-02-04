@@ -6,10 +6,12 @@ import {Button} from 'react-bootstrap';
 const ProductDetails = () => {
     const {state} = useLocation();
     const [orders, setOrders] = React.useState([{}]);
+    const [purchases, setPurchases] = React.useState([{}]);
+
 
     useEffect(() => {
     //GET open customer orders that contain this product
-    async function fetchData() {
+    async function fetchOrderData() {
         await fetch(`http://localhost:8080/api/orders/product/${state.id}`, {
         method: 'GET',
         headers: {
@@ -19,7 +21,19 @@ const ProductDetails = () => {
         .then((response) => {setOrders(response)})
         .catch(console.error);
     }
-    fetchData();
+    fetchOrderData();
+
+    async function fetchPurchaseData() {
+        await fetch(`http://localhost:8080/api/purchases/product/${state.id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `bearer ${localStorage.getItem('access_token')}`
+        }})
+        .then(res => res.json())
+        .then((response) => {setPurchases(response)})
+        .catch(console.error);
+    }
+    fetchPurchaseData();
     
     console.log(JSON.stringify(orders));
 
@@ -38,7 +52,7 @@ const ProductDetails = () => {
                         </Button>
                     </div>
                     <div className="col-md-1"></div>
-                    <p className="h2"> {state.name} Product Details</p>
+                    <h2> {state.name} Product Details</h2>
                 </div>
 
                 {/* Product Info Table */}
@@ -74,7 +88,7 @@ const ProductDetails = () => {
                             <thead className="thead-dark">
                                 <tr>
                                 <th scope="col">#</th>
-                                {/* <th scope="col">Customer</th>  */}
+                                <th scope="col">Customer</th> 
                                 <th scope="col">Order Date</th> 
                                 <th scope="col">Status</th>
                                 </tr>
@@ -87,7 +101,7 @@ const ProductDetails = () => {
 
                                         <tr key={order.id+order.order_date}>
                                             <td>{order.id}</td>
-                                            {/* <td>{`${order.customer.title} ${order.customer.first_name} ${order.customer.last_name}`}</td> */}
+                                            <td>{order.customer ? `${order.customer.title} ${order.customer.first_name} ${order.customer.last_name}` : 'none'}</td>
                                             <td>{order.order_date}</td>
                                             <td>{order.arrival_date === null ? 'PENDING' : 'DELIVERED'}</td>
                                         </tr>
@@ -97,36 +111,33 @@ const ProductDetails = () => {
                             </tbody>
                             </table>
                         </div>
+
                         <div className="col">
                             <p className="lead">Supplier Orders</p>
                             <table className="table">
                             <thead className="thead-dark">
                                 <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Supplier</th>
+                                <th scope="col">Ordered On</th>
+                                <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                </tr>
+                            {
+                                purchases.length === 0 ? <center><tr>No purchase orders for this product</tr></center> :
+                                purchases.map((order) => {
+                                    return (
+
+                                        <tr key={order.id+order.order_date}>
+                                            <td>{order.id}</td>
+                                            <td>{order.supplier ? order.supplier.name : 'none'}</td>
+                                            <td>{order.purchase_date}</td>
+                                            <td>{order.arrival_date === null ? 'PENDING' : 'DELIVERED'}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
                             </tbody>
                             </table>
                         </div>

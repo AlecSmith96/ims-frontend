@@ -32,8 +32,8 @@ const ProductLookup = (props) => {
     }
 
     return (
-        <>
-            <p>Product Lookup</p>
+        <div>
+            <center><h2>Product Lookup</h2></center>
             <form className="container form-inline md-form mr-auto col-md-10">
                 <input className="form-control mr-sm-2" type="text" placeholder="Enter Sku" aria-label="Search"/>
                 <Button className="btn btn-rounded btn-sm my-0" variant="outline-info" type="submit">Search</Button>
@@ -71,7 +71,7 @@ const ProductLookup = (props) => {
             </tbody>
         </table>
         </div>
-        </>
+        </div>
     );
 }
 

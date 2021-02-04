@@ -6,6 +6,8 @@ import LoginCallback from './components/LoginCallback';
 import Dashboard from './components/Dashboard';
 import ProductLookup from './components/ProductLookup';
 import ProductDetails from './components/ProductDetails';
+import CustomerOrders from './components/CustomerOrders';
+import PurchaseOrders from './components/PurchaseOrders';
 
 function App() {
   const [status, updateStatus] = useState('');
@@ -32,14 +34,14 @@ function App() {
             <Nav className="mr-auto">
               <Nav.Link className="text-white" href="/dashboard">Dashboard</Nav.Link>
               <Nav.Link className="text-white" href="/lookup">Product Lookup</Nav.Link>
-              <Nav.Link className="text-white" href="/lookup">Customer Orders</Nav.Link>
-              <Nav.Link className="text-white" href="/lookup">Supplier Orders</Nav.Link>
+              <Nav.Link className="text-white" href="/orders">Customer Orders</Nav.Link>
+              <Nav.Link className="text-white" href="/purchases">Supplier Orders</Nav.Link>
               <Nav.Link className="text-white" href="/lookup">Reports</Nav.Link>
               </Nav>
             }
         {localStorage.getItem('user_name') === null ?
           <Navbar.Text  className='text-white'>Not signed in: <Button  className='text-white' href='/login' variant="outline-info">Sign In</Button></Navbar.Text> :
-          <Navbar.Text  className='text-white'>Signed in as: {localStorage.getItem('user_name')} <Button onClick={() => {localStorage.clear(); updateStatus('logged out'); }} href="/logout" className='text-white' variant="outline-info">Sign Out</Button></Navbar.Text> }
+          <Navbar.Text  className='text-white'>Signed in as: {localStorage.getItem('user_name')} <Button onClick={() => {localStorage.clear(); /*updateStatus('logged out');*/ }} href="/logout" className='text-white' variant="outline-info">Sign Out</Button></Navbar.Text> }
         </Navbar.Collapse>
       </Navbar>
       {/* SIGN OUT BUTTON WORKS, BUT USER CREDENTIALS STILL STORED IN LOCAL STORAGE */}
@@ -53,6 +55,8 @@ function App() {
           <Route path="/oauth_callback" component={LoginCallback} />
           <Route path="/dashboard" component={() => <Dashboard setStatus={(status: React.SetStateAction<string>) => updateStatus(status)}/>} />
           <Route path="/lookup" component={() => <ProductLookup />}/>
+          <Route path="/orders" component={() => <CustomerOrders />}/>
+          <Route path="/purchases" component={() => <PurchaseOrders />}/>
           <Route path="/product/:id" component={ProductDetails} />
         </Switch>
       </Router>
