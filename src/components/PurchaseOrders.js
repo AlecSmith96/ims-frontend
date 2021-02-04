@@ -14,10 +14,22 @@ const PurchaseOrders = () => {
             .catch(console.error());
     }, []);
 
+    // Navigate to purchase details page
+    const handleClick = (purchase) => {
+        // history.push({pathname:`/purchase/${purchase.id}`, state: purchase});
+    }
+
     return (
         <div className="container col-md-8">
             <center>
                 <h2>Purchase Orders</h2>
+
+                <form className="form-control">
+                    <div className="row">
+                        {/* THIS CAN BE USED TO INCLUDE BUTTONS TO FILTER TABLE */}
+                    </div>
+                </form>
+
                 <table className="table table-bordered table-striped">
                     <thead className="thead-dark">
                     <tr>
@@ -32,7 +44,7 @@ const PurchaseOrders = () => {
                         purchases.map((purchaseOrder) => {
                             const status = purchaseOrder.arrival_date === null ? "table-warning" : "table-primary";
                             return (
-                                <tr key={purchaseOrder.id} className={status} >
+                                <tr key={purchaseOrder.id} className={status} onClick={() => handleClick(purchaseOrder)} >
                                     <td>{purchaseOrder.id}</td>
                                     <td>{purchaseOrder.supplier ? purchaseOrder.supplier.name : 'none'}</td>
                                     <td>{purchaseOrder.purchase_date}</td>

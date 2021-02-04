@@ -23,6 +23,7 @@ const ProductDetails = () => {
     }
     fetchOrderData();
 
+    //GET open purchase orders that contain this product
     async function fetchPurchaseData() {
         await fetch(`http://localhost:8080/api/purchases/product/${state.id}`, {
         method: 'GET',
@@ -37,7 +38,6 @@ const ProductDetails = () => {
     
     console.log(JSON.stringify(orders));
 
-    //GET open purchase orders that contain this product
     }, []);
 
 
@@ -54,6 +54,14 @@ const ProductDetails = () => {
                     <div className="col-md-1"></div>
                     <h2> {state.name} Product Details</h2>
                 </div>
+
+                {/* Button group for MANAGER privilages */}
+                <div className="btn-group col-md-10" role="group">
+                    <Button className='btn btn-info my-0' /*href='/lookup'*/>Update Reorder Threshold</Button>
+                    <Button className='btn btn-info my-0' /*href='/lookup'*/>Group button 2</Button>
+                    <Button className='btn btn-info my-0' /*href='/lookup'*/>Group button 3</Button>
+                </div>
+                <br/>
 
                 {/* Product Info Table */}
                 <br/>
@@ -97,9 +105,9 @@ const ProductDetails = () => {
                             {
                                 orders.length === 0 ? <center><tr>No orders containing this product</tr></center> :
                                 orders.map((order) => {
+                                    const status = order.arrival_date === null ? "table-warning" : "table-primary";
                                     return (
-
-                                        <tr key={order.id+order.order_date}>
+                                        <tr key={order.id+order.order_date} className={status}>
                                             <td>{order.id}</td>
                                             <td>{order.customer ? `${order.customer.title} ${order.customer.first_name} ${order.customer.last_name}` : 'none'}</td>
                                             <td>{order.order_date}</td>
@@ -127,9 +135,9 @@ const ProductDetails = () => {
                             {
                                 purchases.length === 0 ? <center><tr>No purchase orders for this product</tr></center> :
                                 purchases.map((order) => {
+                                    const status = order.arrival_date === null ? "table-warning" : "table-primary";
                                     return (
-
-                                        <tr key={order.id+order.order_date}>
+                                        <tr key={order.id+order.order_date} className={status}>
                                             <td>{order.id}</td>
                                             <td>{order.supplier ? order.supplier.name : 'none'}</td>
                                             <td>{order.purchase_date}</td>

@@ -8,6 +8,7 @@ import ProductLookup from './components/ProductLookup';
 import ProductDetails from './components/ProductDetails';
 import CustomerOrders from './components/CustomerOrders';
 import PurchaseOrders from './components/PurchaseOrders';
+import OrderDetails from './components/OrderDetails';
 
 function App() {
   const [status, updateStatus] = useState('');
@@ -58,6 +59,7 @@ function App() {
           <Route path="/orders" component={() => <CustomerOrders />}/>
           <Route path="/purchases" component={() => <PurchaseOrders />}/>
           <Route path="/product/:id" component={ProductDetails} />
+          <Route path="/order/:id" component={OrderDetails} />
         </Switch>
       </Router>
     </div>
