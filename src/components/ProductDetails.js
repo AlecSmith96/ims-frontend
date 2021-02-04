@@ -57,9 +57,9 @@ const ProductDetails = () => {
 
                 {/* Button group for MANAGER privilages */}
                 <div className="btn-group col-md-10" role="group">
-                    <Button className='btn btn-info my-0' /*href='/lookup'*/>Update Reorder Threshold</Button>
-                    <Button className='btn btn-info my-0' /*href='/lookup'*/>Group button 2</Button>
-                    <Button className='btn btn-info my-0' /*href='/lookup'*/>Group button 3</Button>
+                    <Button className='btn btn-secondary my-0' /*href='/lookup'*/>Update Reorder Threshold</Button>
+                    <Button className='btn btn-secondary my-0' /*href='/lookup'*/>Group button 2</Button>
+                    <Button className='btn btn-secondary my-0' /*href='/lookup'*/>Group button 3</Button>
                 </div>
                 <br/>
 

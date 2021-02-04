@@ -26,7 +26,7 @@ const CustomerOrders = () => {
         <>
         <center>
             <h2>Customer Orders</h2>
-                <div className="col-md-12">
+                <div className="col-md-8">
                 <table className="table table-bordered table-striped">
                     <thead className="thead-dark">
                     <tr>
