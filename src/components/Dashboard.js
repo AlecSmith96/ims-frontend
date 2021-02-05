@@ -1,6 +1,7 @@
 import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 import {useLocation} from 'react-router-dom';
+import '../styles/Dashboard.css';
 
 const Dashboard = (props) => {
     const {state} = useLocation();
@@ -29,13 +30,17 @@ const Dashboard = (props) => {
         <div>
             <center>
             { localStorage.getItem('authenticated') === 'true' ?
-                <div className="jumbotron align-middle col-md-6">
-                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
-                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                <div className="vertical-center">
+                    <div className="jumbotron container col-md-6">
+                        <h2> Welcome {localStorage.getItem('user_name')}</h2>
+                        <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                    </div>
                 </div>
                             :
-                <div className="jumbotron align-middle col-md-6">
-                    <h2>Please Sign In</h2>
+                <div className="vertical-center">
+                    <div className="jumbotron container col-md-6">
+                        <h2>Please Sign In</h2>
+                    </div>
                 </div>
             }
             </center>
