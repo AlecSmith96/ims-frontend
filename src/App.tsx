@@ -9,6 +9,7 @@ import ProductDetails from './components/ProductDetails';
 import CustomerOrders from './components/CustomerOrders';
 import PurchaseOrders from './components/PurchaseOrders';
 import OrderDetails from './components/OrderDetails';
+import ReportsDashboard from './components/ReportsDashboard';
 
 function App() {
   const [status, updateStatus] = useState('');
@@ -37,7 +38,7 @@ function App() {
               <Nav.Link className="text-white" href="/lookup">Product Lookup</Nav.Link>
               <Nav.Link className="text-white" href="/orders">Customer Orders</Nav.Link>
               <Nav.Link className="text-white" href="/purchases">Supplier Orders</Nav.Link>
-              <Nav.Link className="text-white" href="/lookup">Reports</Nav.Link>
+              <Nav.Link className="text-white" href="/reports">Reports</Nav.Link>
               </Nav>
             }
         {localStorage.getItem('user_name') === null ?
@@ -60,6 +61,7 @@ function App() {
           <Route path="/purchases" component={() => <PurchaseOrders />}/>
           <Route path="/product/:id" component={ProductDetails} />
           <Route path="/order/:id" component={OrderDetails} />
+          <Route path="/reports" component={ReportsDashboard} />
         </Switch>
       </Router>
     </div>
