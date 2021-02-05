@@ -28,7 +28,6 @@ const OrderDetails = () => {
                             <p className="lead">Order Date: {state.order_date}</p>
                             <p className="lead">Status: {state.arrival_date ? 'DELIVERED' : 'PENDING'}</p>
                             {state.arrival_date ? <p className="lead">Delivered On: {state.arrival_date} </p> : <div/>}
-                            <p className="lead">Total Price: £{state.totalCost}</p>
                         </div>
                     </div>
                     <div className="col">
@@ -47,11 +46,16 @@ const OrderDetails = () => {
                                         <tr key={product.id+product.order_date}>
                                             <td>{product.id}</td>
                                             <td>{product.name}</td>
-                                            <td>{product.price}</td>
+                                            <td className="text-right" >£{product.price.toFixed(2)}</td>
                                         </tr>
                                     )
                                 })
                             }
+                            <tr className="table-info">
+                                <td className="text-right" colspan="2">Total Cost:</td>
+                                <td className="text-right" >£{state.totalCost}</td>
+                            </tr>
+
                             </tbody>
                         </table>
                     </div>
