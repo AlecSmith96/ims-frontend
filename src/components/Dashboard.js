@@ -39,6 +39,11 @@ const Dashboard = (props) => {
                             :
                 <div className="vertical-center">
                     <div className="jumbotron container col-md-6">
+                    <img
+                        src={process.env.PUBLIC_URL+"/AgileInventoryLogo-black.png"}
+                        className="d-inline-block align-top"
+                        alt="React Bootstrap logo"
+                    />
                         <h2>Please Sign In</h2>
                     </div>
                 </div>

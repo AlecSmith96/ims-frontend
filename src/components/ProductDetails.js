@@ -105,13 +105,13 @@ const ProductDetails = () => {
                             {
                                 orders.length === 0 ? <center><tr>No orders containing this product</tr></center> :
                                 orders.map((order) => {
-                                    const status = order.arrival_date === null ? "table-warning" : "table-primary";
+                                    const status = order.arrival_date === "null" ? "table-warning" : "table-primary";
                                     return (
                                         <tr key={order.id+order.order_date} className={status}>
                                             <td>{order.id}</td>
                                             <td>{order.customer ? `${order.customer.title} ${order.customer.first_name} ${order.customer.last_name}` : 'none'}</td>
                                             <td>{order.order_date}</td>
-                                            <td>{order.arrival_date === null ? 'PENDING' : 'DELIVERED'}</td>
+                                            <td>{order.arrival_date === "null" ? 'PENDING' : 'DELIVERED'}</td>
                                         </tr>
                                     )
                                 })
@@ -135,13 +135,13 @@ const ProductDetails = () => {
                             {
                                 purchases.length === 0 ? <center><tr>No purchase orders for this product</tr></center> :
                                 purchases.map((order) => {
-                                    const status = order.arrival_date === null ? "table-warning" : "table-primary";
+                                    const status = order.arrival_date === "null" ? "table-warning" : "table-primary";
                                     return (
                                         <tr key={order.id+order.order_date} className={status}>
                                             <td>{order.id}</td>
                                             <td>{order.supplier ? order.supplier.name : 'none'}</td>
                                             <td>{order.purchase_date}</td>
-                                            <td>{order.arrival_date === null ? 'PENDING' : 'DELIVERED'}</td>
+                                            <td>{order.arrival_date === "null" ? 'PENDING' : 'DELIVERED'}</td>
                                         </tr>
                                     )
                                 })

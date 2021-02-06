@@ -1,7 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import { useHistory } from 'react-router-dom';
+import {Button, Modal} from 'react-bootstrap';
+import NewPurchaseOrder from './NewPurchaseOrder';
 
 const PurchaseOrders = () => {
     const [purchases, setPurchases] = useState([{}]);
+    const [showModal, setModal] = useState(false);
+    const history = useHistory();
 
     useEffect(() => {
         fetch('http://localhost:8080/api/purchases/all', {
@@ -16,7 +21,7 @@ const PurchaseOrders = () => {
 
     // Navigate to purchase details page
     const handleClick = (purchase) => {
-        // history.push({pathname:`/purchase/${purchase.id}`, state: purchase});
+        history.push({pathname:`/purchase/${purchase.id}`, state: purchase});
     }
 
     return (
@@ -24,9 +29,10 @@ const PurchaseOrders = () => {
             <center>
                 <h2>Purchase Orders</h2>
 
-                <form className="form-control">
-                    <div className="row">
+                <form className="">
+                    <div className="row w-100 mb-1">
                         {/* THIS CAN BE USED TO INCLUDE BUTTONS TO FILTER TABLE */}
+                        <Button className='btn btn-rounded float-right' onClick={() => setModal(true)} variant="outline-info">Create New</Button>
                     </div>
                 </form>
 
@@ -55,6 +61,7 @@ const PurchaseOrders = () => {
                     }
                     </tbody>
                 </table>
+                <NewPurchaseOrder showModal={showModal} setModal={setModal} />
             </center>
         </div>
     )

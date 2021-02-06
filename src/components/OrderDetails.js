@@ -7,10 +7,10 @@ import {Button, Card as p} from 'react-bootstrap';
 const OrderDetails = () => {
     const {state} = useLocation();
 
-
-
     return (
         <div>
+            <center>
+                <br/>
             <div className="row col-md-10">
                 <div>
                     <Button className='btn btn-rounded my-0' href='/orders' variant="outline-info">Back</Button>
@@ -26,8 +26,8 @@ const OrderDetails = () => {
                         <div className="jumbotron h-100 w-100 d-inline-block">
                             <h5 className="card-title">{`${state.customer.title} ${state.customer.first_name} ${state.customer.last_name}`}</h5>
                             <p className="lead">Order Date: {state.order_date}</p>
-                            <p className="lead">Status: {state.arrival_date ? 'DELIVERED' : 'PENDING'}</p>
-                            {state.arrival_date ? <p className="lead">Delivered On: {state.arrival_date} </p> : <div/>}
+                            <p className="lead">Status: {state.arrival_date === "null" ? 'PENDING' : 'DELIVERED' }</p>
+                            {state.arrival_date === "null" ? <div/> :<p className="lead">Delivered On: {state.arrival_date} </p>}
                         </div>
                     </div>
                     <div className="col">
@@ -61,6 +61,7 @@ const OrderDetails = () => {
                     </div>
                 </div>
             </div>
+            </center>
         </div>
     );
 }

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import WasteReportComponent from './WasteReportComponent';
 
 const ReportsDashboard = () => {
+    const [reportState, setReportState] = useState('');
+
     return (
         <div>
             <h5>Reports</h5>
@@ -11,8 +14,11 @@ const ReportsDashboard = () => {
                         <Button className="btn btn-secondary my-0">Stock Movement</Button>
                         <Button className="btn btn-secondary my-0">Order Summary</Button>
                         <Button className="btn btn-secondary my-0">Purchase Summary</Button>
-                        <Button className="btn btn-secondary my-0">Waste</Button>
+                        <Button className="btn btn-secondary my-0" onClick={() => setReportState('waste')}>Waste Reports</Button>
                     </div>
+                </div>
+                <div className="col">
+                    {reportState === 'waste' ? <WasteReportComponent/> : <div/>}
                 </div>
             </div>
         </div>

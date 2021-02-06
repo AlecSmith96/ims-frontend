@@ -39,13 +39,13 @@ const CustomerOrders = () => {
                     <tbody id="orders">
                     {
                         orders.map((order) => {
-                            const status = order.arrival_date === null ? "table-warning" : "table-primary";
+                            const status = order.arrival_date === "null" ? "table-warning" : "table-primary";
                             return (
                                 <tr key={order.id} className={status} onClick={() => handleClick(order)}>
                                     <td>{order.id}</td>
                                     <td>{order.customer ? `${order.customer.title} ${order.customer.first_name} ${order.customer.last_name}` : 'none'}</td>
                                     <td>{order.order_date}</td>
-                                    <td>{order.arrival_date === null ? 'PENDING' : 'DELIVERED'}</td>
+                                    <td>{order.arrival_date === "null" ? 'PENDING' : 'DELIVERED'}</td>
                                 </tr>
                             )
                         })
