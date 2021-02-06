@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MDBDataTable, MDBTableHead, MDBTableBody } from 'mdbreact';
 import { useHistory } from 'react-router-dom';
+import '../styles/Global.css';
 
 const CustomerOrders = () => {
     const history = useHistory();

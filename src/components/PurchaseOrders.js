@@ -33,6 +33,7 @@ const PurchaseOrders = () => {
                     <div className="row w-100 mb-1">
                         {/* THIS CAN BE USED TO INCLUDE BUTTONS TO FILTER TABLE */}
                         <Button className='btn btn-rounded float-right' onClick={() => setModal(true)} variant="outline-info">Create New</Button>
+                        <Button className='btn btn-rounded float-right' onClick={() => setModal(true)} variant="outline-info">Record order delivery</Button>
                     </div>
                 </form>
 
