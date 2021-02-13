@@ -8,7 +8,9 @@ import { Typeahead } from 'react-bootstrap-typeahead';
  */
 const NewPurchaseOrder = (props) => {
     const [supplierNames, setSupplierNames] = useState(['']);
-    const [products, setProducts] = useState(['']);
+    const [products, setProducts] = useState([{}]);
+    const [filteredProducts, setFilteredProducts] = useState([{}])
+    const [selectedSupplier, setSelectedSupplier] = useState('Choose...');
 
     useEffect(() => {
             //get supplier names
@@ -22,7 +24,7 @@ const NewPurchaseOrder = (props) => {
             .catch(console.error());
 
             //get products
-            fetch('http://localhost:8080/api/products/all-names', {
+            fetch('http://localhost:8080/api/products', {
                 method: 'GET',
                 headers: {
                 'Authorization': `bearer ${localStorage.getItem('access_token')}`
@@ -31,6 +33,12 @@ const NewPurchaseOrder = (props) => {
             .then((data) => {setProducts(data)})
             .catch(console.error());
     }, [])
+
+    function filterProducts(e) {
+        setSelectedSupplier(e.target.value);
+        const filtered = products.filter(product => product.supplier.name === e.target.value);
+        setFilteredProducts(filtered);
+    }
 
     return (
         <Modal show={props.showModal} onHide={() => props.setModal(false)}>
@@ -43,8 +51,8 @@ const NewPurchaseOrder = (props) => {
                     <div className="form-group row">
                         <label for="inputSupplier" className="col-form-label ml-3">Supplier</label>
                         <div className="col-sm-10">
-                            <select id="inputSupplier" className="form-control">
-                                <option selected>Choose...</option>
+                            <select id="inputSupplier" className="form-control" onChange={(e) => filterProducts(e)}>
+                                <option defaultValue>Choose...</option>
                                 {
                                     supplierNames.map((name) => <option>{name}</option>)
                                 }
@@ -52,7 +60,16 @@ const NewPurchaseOrder = (props) => {
                         </div>
                     </div>
                     <div className="form-group row col-md-10">
-                        <label for="inputProduct" className="form-control">Add Product</label>
+                        <label for="inputProduct1" className="form-control">Add Product</label>
+                        {
+                            selectedSupplier === 'Choose...' ? <div/> :
+                            <select id="inputProduct" className="form-control" >
+                                <option defaultValue>Choose...</option>
+                                {
+                                    filteredProducts.map((product) => <option>{product.name}</option>)
+                                }
+                            </select>
+                        }
                     </div>
                     <p>Select products</p>
                 </form>
