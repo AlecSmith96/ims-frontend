@@ -73,6 +73,8 @@ const ProductDetails = () => {
                     <th scope="col">Price</th>
                     <th scope="col">Current Inventory</th>
                     <th scope="col">Reorder Threshold</th>
+                    <th scope="col">Reorder Quantity</th>
+                    <th scope="col">Supplier</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,6 +84,8 @@ const ProductDetails = () => {
                     <td>{state.price}</td>
                     <td>{state.inventory_on_hand}</td>
                     <td>{state.reorder_threshold}</td>
+                    <td>{state.reorder_quantity}</td>
+                    <td>{state.supplier ? state.supplier.name : 'none'}</td>
                     </tr>
                 </tbody>
                 </table>
