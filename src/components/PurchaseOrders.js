@@ -49,13 +49,13 @@ const PurchaseOrders = () => {
                     <tbody id="purchases">
                     {
                         purchases.map((purchaseOrder) => {
-                            const status = purchaseOrder.arrival_date === null ? "table-warning" : "table-primary";
+                            const status = purchaseOrder.arrival_date === 'null' ? "table-warning" : "table-primary";
                             return (
                                 <tr key={purchaseOrder.id} className={status} onClick={() => handleClick(purchaseOrder)} >
                                     <td>{purchaseOrder.id}</td>
                                     <td>{purchaseOrder.supplier ? purchaseOrder.supplier.name : 'none'}</td>
                                     <td>{purchaseOrder.purchase_date}</td>
-                                    <td>{purchaseOrder.arrival_date === null ? 'PENDING' : 'DELIVERED'}</td>
+                                    <td>{purchaseOrder.arrival_date === 'null' ? 'PENDING' : 'DELIVERED'}</td>
                                 </tr>
                             )
                         })

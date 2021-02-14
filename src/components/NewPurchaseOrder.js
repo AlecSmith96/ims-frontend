@@ -11,7 +11,7 @@ const NewPurchaseOrder = (props) => {
     const [products, setProducts] = useState([{}]);
     const [filteredProducts, setFilteredProducts] = useState([{}])
     const [selectedSupplier, setSelectedSupplier] = useState('Choose...');
-    const [fields, setFields] = useState([{ value: null }]);
+    const [fields, setFields] = useState([{}]);
 
 
     useEffect(() => {
@@ -61,8 +61,18 @@ const NewPurchaseOrder = (props) => {
       }
 
       function submitSupplierOrder() {
-          const data = JSON.stringify(fields);
-          console.log(data);
+          const products = JSON.stringify(fields);
+          const data = `{"supplier": "${selectedSupplier}", "products": ${products}}`;
+
+          fetch('http://localhost:8080/api/purchase/create', {
+                method: 'POST',
+                headers: {'Authorization': `bearer ${localStorage.getItem('access_token')}`,
+                            'Content-Type': 'application/json'},
+                body: data
+            })
+            .then(res => res.json())
+            .then((data) => {setProducts(data)})
+            .catch(console.error());
       }
 
       // https://dev.to/email2vimalraj/dynamic-form-fields-using-react-35ci
@@ -73,7 +83,7 @@ const NewPurchaseOrder = (props) => {
                 <Modal.Title className="">New Purchase Order</Modal.Title>
             </Modal.Header>
 
-            <form onSubmit={submitSupplierOrder()}>
+            <form onSubmit={() => submitSupplierOrder()}>
             <Modal.Body>
                     <p className="lead">Select the Supplier you wish to order from</p>
                     <div className="form-group row">
