@@ -11,6 +11,8 @@ const NewPurchaseOrder = (props) => {
     const [products, setProducts] = useState([{}]);
     const [filteredProducts, setFilteredProducts] = useState([{}])
     const [selectedSupplier, setSelectedSupplier] = useState('Choose...');
+    const [fields, setFields] = useState([{ value: null }]);
+
 
     useEffect(() => {
             //get supplier names
@@ -40,18 +42,44 @@ const NewPurchaseOrder = (props) => {
         setFilteredProducts(filtered);
     }
 
+    function handleChange(i, event) {
+        const values = [...fields];
+        values[i].value = event.target.value;
+        setFields(values);
+      }
+    
+      function handleAdd() {
+        const values = [...fields];
+        values.push({ value: null });
+        setFields(values);
+      }
+    
+      function handleRemove(i) {
+        const values = [...fields];
+        values.splice(i, 1);
+        setFields(values);
+      }
+
+      function submitSupplierOrder() {
+          const data = JSON.stringify(fields);
+          console.log(data);
+      }
+
+      // https://dev.to/email2vimalraj/dynamic-form-fields-using-react-35ci
+
     return (
         <Modal show={props.showModal} onHide={() => props.setModal(false)}>
             <Modal.Header className="bg-light" closeButton>
                 <Modal.Title className="">New Purchase Order</Modal.Title>
             </Modal.Header>
 
+            <form onSubmit={submitSupplierOrder()}>
             <Modal.Body>
-                <form>
+                    <p className="lead">Select the Supplier you wish to order from</p>
                     <div className="form-group row">
                         <label for="inputSupplier" className="col-form-label ml-3">Supplier</label>
                         <div className="col-sm-10">
-                            <select id="inputSupplier" className="form-control" onChange={(e) => filterProducts(e)}>
+                            <select id="inputSupplier" className="form-control" onChange={(e) => filterProducts(e)} required>
                                 <option defaultValue>Choose...</option>
                                 {
                                     supplierNames.map((name) => <option>{name}</option>)
@@ -59,26 +87,38 @@ const NewPurchaseOrder = (props) => {
                             </select>
                         </div>
                     </div>
-                    <div className="form-group row col-md-10">
-                        <label for="inputProduct1" className="form-control">Add Product</label>
-                        {
+                    <p className="lead">The quantity ordered will be the standard reorder amount for that product.</p>
+                    <div className="row w-100">
+                        <span className="ml-3 align-middle">Products:</span>
+                        {selectedSupplier === 'Choose...' ? <div/> : <Button className="float-right" variant="info" type="button" onClick={() => handleAdd()}>Add</Button>}
+                    </div>
+                    <div className="form-group row">
+                        {   // Render product selection fields
                             selectedSupplier === 'Choose...' ? <div/> :
-                            <select id="inputProduct" className="form-control" >
-                                <option defaultValue>Choose...</option>
-                                {
-                                    filteredProducts.map((product) => <option>{product.name}</option>)
-                                }
-                            </select>
+                            fields.map((field, idx) => {
+                                return (         
+                                    <div className="container ml-3 mr-3">                           
+                                        <div className="row mt-1" key={`${field}-${idx}`}>
+                                            <select id="inputProduct" className="form-control col-10" onChange={e => handleChange(idx, e)} required>
+                                                <option defaultValue>Choose...</option>
+                                                {
+                                                    filteredProducts.map((product) => <option>{product.name}</option>)
+                                                }
+                                            </select>
+                                            <Button className="col btn-sm my-0" variant="info" type="button" onClick={() => handleRemove(idx)}>Remove</Button>
+                                        </div>
+                                    </div>
+                                )
+                            })
                         }
                     </div>
-                    <p>Select products</p>
-                </form>
             </Modal.Body>
 
             <Modal.Footer className="bg-light">
-                <Button variant="secondary" onClick={() => props.setModal(false)}>Close</Button>
-                <Button variant="info">Submit Order</Button>
+                <Button variant="secondary" onClick={() => {props.setModal(false); setSelectedSupplier('Choose...')}}>Close</Button>
+                <input className="btn btn-info" type="submit" value="Submit Order" />
             </Modal.Footer>
+            </form>
         </Modal>
     )
 }

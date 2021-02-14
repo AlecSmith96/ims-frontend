@@ -107,7 +107,7 @@ const ProductDetails = () => {
                             </thead>
                             <tbody>
                             {
-                                orders.length === 0 ? <center><tr>No orders containing this product</tr></center> :
+                                orders.length === 0 ? <center><tr><td colspan="4">No orders containing this product</td></tr></center> :
                                 orders.map((order) => {
                                     const status = order.arrival_date === "null" ? "table-warning" : "table-primary";
                                     return (
@@ -137,7 +137,7 @@ const ProductDetails = () => {
                             </thead>
                             <tbody>
                             {
-                                purchases.length === 0 ? <center><tr>No purchase orders for this product</tr></center> :
+                                purchases.length === 0 ? <center><tr><td colSpan="4">No purchase orders for this product</td></tr></center> :
                                 purchases.map((order) => {
                                     const status = order.arrival_date === "null" ? "table-warning" : "table-primary";
                                     return (
