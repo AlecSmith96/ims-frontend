@@ -25,7 +25,15 @@ const OrderDetails = () => {
                     <div className="col">
                         <div className="jumbotron h-100 w-100 d-inline-block">
                             <h5 className="card-title">{`${state.customer.title} ${state.customer.first_name} ${state.customer.last_name}`}</h5>
-                            <p className="lead">Order Date: {state.order_date}</p>
+                            <div className="">
+                                <address>
+                                Order Date: {state.order_date}<br/>
+                                {state.customer.address.house_number} {state.customer.address.line_1}<br/>
+                                {state.customer.address.city}<br/>
+                                {state.customer.address.county}<br/>
+                                {state.customer.address.post_code}<br/>
+                                </address>
+                            </div>
                             <p className="lead">Status: {state.arrival_date === "null" ? 'PENDING' : 'DELIVERED' }</p>
                             {state.arrival_date === "null" ? <div/> :<p className="lead">Delivered On: {state.arrival_date} </p>}
                         </div>
