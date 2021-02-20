@@ -1,9 +1,10 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 
 const PurchaseDetails = () => {
     const {state} = useLocation();
+    const history = useHistory();
 
     return (
         <div>
@@ -21,7 +22,6 @@ const PurchaseDetails = () => {
                 <div className="row">
                     <div className="col">
                         <div className="jumbotron h-100 w-100 d-inline-block">
-                            {/* <h5 className="card-title">{`${state.customer.title} ${state.customer.first_name} ${state.customer.last_name}`}</h5> */}
                             <p className="lead">Order Date: {state.purchase_date}</p>
                             <p className="lead">Status: {state.arrival_date === "null" ? 'PENDING' : 'DELIVERED' }</p>
                             {state.arrival_date === "null" ? <div/> :<p className="lead">Delivered On: {state.arrival_date} </p>}
@@ -48,11 +48,6 @@ const PurchaseDetails = () => {
                                     )
                                 })
                             }
-                            {/* <tr className="table-info">
-                                <td className="text-right" colspan="2">Total Cost:</td>
-                                <td className="text-right" >£{state.totalCost}</td>
-                            </tr> */}
-
                             </tbody>
                         </table>
                     </div>

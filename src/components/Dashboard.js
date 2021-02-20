@@ -20,11 +20,34 @@ const Dashboard = (props) => {
         <div>
             <center>
             { localStorage.getItem('authenticated') === 'true' ?
-                <div className="vertical-center">
-                    <div className="jumbotron container col-md-6">
-                        <h2> Welcome {localStorage.getItem('user_name')}</h2>
-                        <h3>Authority: {localStorage.getItem('authorities')}</h3>
-                    </div>
+                <div className="vertical-center container">
+                        <div className="row">
+                            <div className="col">
+                                <div className="jumbotron container">
+                                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
+                                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="jumbotron container">
+                                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
+                                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                                </div>
+                            </div>
+                            <div className="w-100"></div>
+                            <div className="col">
+                                <div className="jumbotron container ">
+                                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
+                                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="jumbotron container">
+                                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
+                                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                             :
                 <div className="vertical-center">

@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import {Button, Modal} from 'react-bootstrap';
 import NewPurchaseOrder from './NewPurchaseOrder';
+import SetDeliveredPurchaseOrder from './SetDeliveredPurchaseOrder';
 
 const PurchaseOrders = () => {
     const [purchases, setPurchases] = useState([{}]);
-    const [showModal, setModal] = useState(false);
+    const [showModal, setModal] = useState(false);                      // for displaying new purchase order modal
+    const [showDeliveredModal, setDeliveredModal] = useState(false);    // for setting purchase order to delivered
     const history = useHistory();
 
     useEffect(() => {
@@ -33,7 +35,7 @@ const PurchaseOrders = () => {
                     <div className="row w-100 mb-1">
                         {/* THIS CAN BE USED TO INCLUDE BUTTONS TO FILTER TABLE */}
                         <Button className='btn btn-rounded float-right' onClick={() => setModal(true)} variant="outline-info">Create New</Button>
-                        <Button className='btn btn-rounded float-right' onClick={() => setModal(true)} variant="outline-info">Record order delivery</Button>
+                        <Button className='btn btn-rounded float-right ml-1' onClick={() => setDeliveredModal(true)} variant="outline-info">Record order delivery</Button>
                     </div>
                 </form>
 
@@ -63,6 +65,7 @@ const PurchaseOrders = () => {
                     </tbody>
                 </table>
                 <NewPurchaseOrder showModal={showModal} setModal={setModal} />
+                <SetDeliveredPurchaseOrder showModal={showDeliveredModal} setModal={setDeliveredModal} />
             </center>
         </div>
     )
