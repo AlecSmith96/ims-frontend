@@ -50,6 +50,9 @@ const ProductLookup = (props) => {
     return (
         <div>
             <center><h2>Product Lookup</h2></center>
+            <form className="container form-inline md-form mr-auto col-md-10 mb-1" onSubmit={searchBySku}>
+                <Button className="btn btn-rounded my-0" variant="outline-info" type="submit">Add New Product</Button>
+            </form>
             <form className="container form-inline md-form mr-auto col-md-10" onSubmit={searchBySku}>
                 <input className="form-control mr-sm-2" type="text" placeholder="Enter Sku" aria-label="Search" value={sku} onChange={handleSkuChange}/>
                 <Button className="btn btn-rounded btn-sm my-0" variant="outline-info" type="submit">Search</Button>

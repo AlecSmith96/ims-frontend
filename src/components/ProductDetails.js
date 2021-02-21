@@ -56,10 +56,10 @@ const ProductDetails = () => {
                 </div>
 
                 {/* Button group for MANAGER privilages */}
-                <div className="btn-group col-md-10" role="group">
+                <div className="btn-group btn-block col-md-10" role="group">
                     <Button className='btn btn-secondary my-0' /*href='/lookup'*/>Update Reorder Threshold</Button>
-                    <Button className='btn btn-secondary my-0' /*href='/lookup'*/>Group button 2</Button>
-                    <Button className='btn btn-secondary my-0' /*href='/lookup'*/>Group button 3</Button>
+                    <Button className='btn btn-secondary my-0' /*href='/lookup'*/>Update Reorder Amount</Button>
+                    <Button className='btn btn-secondary my-0 bg-danger' /*href='/lookup'*/>Suspend Product</Button>
                 </div>
                 <br/>
 
@@ -81,7 +81,7 @@ const ProductDetails = () => {
                     <tr>
                     <td>{state.id}</td>
                     <td>{state.sku}</td>
-                    <td>{state.price}</td>
+                    <td>{state.price.toFixed(2)}</td>
                     <td>{state.inventory_on_hand}</td>
                     <td>{state.reorder_threshold}</td>
                     <td>{state.reorder_quantity}</td>

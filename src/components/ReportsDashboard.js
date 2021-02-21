@@ -6,11 +6,10 @@ const ReportsDashboard = () => {
     const [reportState, setReportState] = useState('');
 
     return (
-        <div>
+        <div className="text-center">
             <h5>Reports</h5>
-            <div className="row">
                 <div className="col h-100">
-                    <div className="btn-group-vertical">
+                    <div className="btn-group">
                         <Button className="btn btn-secondary my-0">Stock Movement</Button>
                         <Button className="btn btn-secondary my-0">Order Summary</Button>
                         <Button className="btn btn-secondary my-0">Purchase Summary</Button>
@@ -21,7 +20,6 @@ const ReportsDashboard = () => {
                     {reportState === 'waste' ? <WasteReportComponent/> : <div/>}
                 </div>
             </div>
-        </div>
     );
 }
 
