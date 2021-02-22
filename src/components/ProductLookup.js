@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import NewProduct from './NewProduct';
 
 const ProductLookup = (props) => {
     const history = useHistory();
@@ -8,6 +9,7 @@ const ProductLookup = (props) => {
     const [products, setProducts] = useState([{}]);
     const [searchTerm, setSearchTerm] = React.useState('');
     const [searchResults, setSearchResults] = React.useState([{}]);
+    const [showModal, setModal] = useState(false);
 
     // Filter all products by characters found in text box
     const handleChange = e => {
@@ -54,7 +56,7 @@ const ProductLookup = (props) => {
                 localStorage.getItem('authorities') === 'USER' ? 
                 <div/> :
                 <div className="btn-group container md-form mr-auto col-md-10 mb-3 text-center">
-                    <Button className="btn btn-rounded my-0" variant="outline-info" type="submit">Add New Product</Button>
+                    <Button className="btn btn-rounded my-0" variant="outline-info" onClick={() => {setModal(true)}}>Add New Product</Button>
                     <Button className="btn btn-rounded my-0" variant="outline-danger" type="submit">View Suspended Products</Button>
                 </div>
             }
@@ -96,6 +98,7 @@ const ProductLookup = (props) => {
             </tbody>
         </table>
         </div>
+        <NewProduct setModal={setModal} showModal={showModal}/>
         </div>
     );
 }
