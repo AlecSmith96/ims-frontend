@@ -1,11 +1,12 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import {Button, Card as p} from 'react-bootstrap';
 
 
 
 const OrderDetails = () => {
     const {state} = useLocation();
+    const history = useHistory();
 
     return (
         <div>
@@ -13,7 +14,7 @@ const OrderDetails = () => {
                 <br/>
             <div className="row col-md-10">
                 <div>
-                    <Button className='btn btn-rounded my-0' href='/orders' variant="outline-info">Back</Button>
+                    <Button className='btn btn-rounded my-0' onClick={() => {history.goBack()}} variant="outline-info">Back</Button>
                 </div>
 
                 <div className="col-md-1"></div>

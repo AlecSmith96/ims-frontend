@@ -11,6 +11,7 @@ import PurchaseOrders from './components/PurchaseOrders';
 import OrderDetails from './components/OrderDetails';
 import ReportsDashboard from './components/ReportsDashboard';
 import PurchaseDetails from './components/PurchaseDetails';
+import ReportViewer from './components/ReportViewer';
 
 function App() {
   const [status, updateStatus] = useState('');
@@ -38,10 +39,14 @@ function App() {
               <Nav.Link className="text-white" href="/dashboard">Dashboard</Nav.Link>
               <Nav.Link className="text-white" href="/lookup">Product Lookup</Nav.Link>
               <Nav.Link className="text-white" href="/orders">Customer Orders</Nav.Link>
-              <Nav.Link className="text-white" href="/purchases">Supplier Orders</Nav.Link>
-              {localStorage.getItem('authorities') === 'ADMIN' || 'MANAGER' ? 
-              <Nav.Link className="text-white" href="/reports">Reports</Nav.Link> :
-              <Nav.Link className="text-white" href="/waste">Waste Report</Nav.Link>
+              { // USER accounts cannot access supplier orders
+                localStorage.getItem('authorities') === 'USER' ? <div/> :
+                <Nav.Link className="text-white" href="/purchases">Supplier Orders</Nav.Link>
+              } 
+              { // USER accounts can only submit Waste Reports
+                localStorage.getItem('authorities') === 'ADMIN' || localStorage.getItem('authorities') === 'MANAGER' ? 
+                <Nav.Link className="text-white" href="/reports">Reports</Nav.Link> :
+                <Nav.Link className="text-white" href="/waste">Waste Report</Nav.Link>
               }
               </Nav>
             }
@@ -50,7 +55,6 @@ function App() {
           <Navbar.Text  className='text-white'>Signed in as: {localStorage.getItem('user_name')} <Button onClick={() => {localStorage.clear(); /*updateStatus('logged out');*/ }} href="/logout" className='text-white' variant="outline-info">Sign Out</Button></Navbar.Text> }
         </Navbar.Collapse>
       </Navbar>
-      {/* SIGN OUT BUTTON WORKS, BUT USER CREDENTIALS STILL STORED IN LOCAL STORAGE */}
       
       {/* Router provides mappings for paths to the components to be rendered for them. */}
       <Router>
@@ -67,6 +71,7 @@ function App() {
           <Route path="/order/:id" component={OrderDetails} />
           <Route path="/purchase/:id" component={PurchaseDetails} />
           <Route path="/reports" component={ReportsDashboard} />
+          <Route path="/report/:reportName" component={ReportViewer}/>
         </Switch>
       </Router>
     </div>

@@ -12,7 +12,7 @@ const PurchaseDetails = () => {
                 <br/>
             <div className="row col-md-10">
                 <div>
-                    <Button className='btn btn-rounded my-0' href='/purchases' variant="outline-info">Back</Button>
+                    <Button className='btn btn-rounded my-0' onClick={() => {history.goBack()}} variant="outline-info">Back</Button>
                 </div>
 
                 <div className="col-md-1"></div>
