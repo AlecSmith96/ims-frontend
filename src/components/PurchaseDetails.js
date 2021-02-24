@@ -6,6 +6,18 @@ const PurchaseDetails = () => {
     const {state} = useLocation();
     const history = useHistory();
 
+    function handleReorder() {
+        fetch(`http://localhost:8080/api/purchase/reorder/${state.id}`, {
+                method: 'POST',
+                headers: {'Authorization': 
+                                `bearer ${localStorage.getItem('access_token')}`
+        }})
+        .then(res => res.json())
+        .catch(console.error());
+        alert("Products reordered!")
+        history.push('/purchases');
+    }
+
     return (
         <div>
             <center>
@@ -23,8 +35,10 @@ const PurchaseDetails = () => {
                     <div className="col">
                         <div className="jumbotron h-100 w-100 d-inline-block">
                             <p className="lead">Order Date: {state.purchase_date}</p>
+                            <p className="lead">Supplier: {state.supplier ? state.supplier.name : 'none'}</p>
                             <p className="lead">Status: {state.arrival_date === "null" ? 'PENDING' : 'DELIVERED' }</p>
                             {state.arrival_date === "null" ? <div/> :<p className="lead">Delivered On: {state.arrival_date} </p>}
+                            <Button variant="outline-info" onClick={() => {handleReorder()}}>Reorder</Button>
                         </div>
                     </div>
                     <div className="col h-100">
