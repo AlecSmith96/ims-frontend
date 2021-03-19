@@ -12,6 +12,8 @@ import OrderDetails from './components/OrderDetails';
 import ReportsDashboard from './components/ReportsDashboard';
 import PurchaseDetails from './components/PurchaseDetails';
 import ReportViewer from './components/ReportViewer';
+import CustomerSearch from './components/CustomerSearch';
+import CustomerDetails from './components/CustomerDetails';
 
 function App() {
   const [status, updateStatus] = useState('');
@@ -72,6 +74,8 @@ function App() {
           <Route path="/purchase/:id" component={PurchaseDetails} />
           <Route path="/reports" component={ReportsDashboard} />
           <Route path="/report/:reportName" component={ReportViewer}/>
+          <Route path="/customers" component={CustomerSearch}/>
+          <Route path="/customer/:id" component={CustomerDetails}/>
         </Switch>
       </Router>
     </div>

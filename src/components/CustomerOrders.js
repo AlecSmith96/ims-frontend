@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MDBDataTable, MDBTableHead, MDBTableBody } from 'mdbreact';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import '../styles/Global.css';
 
 const CustomerOrders = () => {
@@ -22,11 +23,21 @@ const CustomerOrders = () => {
     const handleClick = (order) => {
         history.push({pathname:`/order/${order.id}`, state: order});
     }
+
+    function navigateToCustomerSearch() {
+        history.push('/customers');
+    }
     
       return (
         <>
+        <center><h2>Customer Orders</h2></center>
         <center>
-            <h2>Customer Orders</h2>
+            <form className="container col-md-8">
+                <div className="row w-100 mb-1">
+                    <Button className='btn btn-rounded form-control' onClick={() => {navigateToCustomerSearch()}} variant="outline-info">Customer Search</Button>
+                </div>
+            </form>
+
                 <div className="col-md-8">
                 <table className="table table-bordered table-striped">
                     <thead className="thead-dark">
