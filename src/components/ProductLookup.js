@@ -10,6 +10,7 @@ const ProductLookup = (props) => {
     const [searchTerm, setSearchTerm] = React.useState('');
     const [searchResults, setSearchResults] = React.useState([{}]);
     const [showModal, setModal] = useState(false);
+    const [viewSuspended, setViewSuspended] = useState(false);
 
     // Filter all products by characters found in text box
     const handleChange = e => {
@@ -18,15 +19,19 @@ const ProductLookup = (props) => {
         setSearchResults(results);
       };
 
-    useEffect(() => {   // After render send call to resource server to return all products from db
+    function getProducts() {
         fetch('http://localhost:8080/api/products', {
-            method: 'GET',
-            headers: {
-            'Authorization': `bearer ${localStorage.getItem('access_token')}`
-            }})
-            .then(res => res.json())
-            .then((data) => {setProducts(data)}) 
-            .catch(console.error());
+        method: 'GET',
+        headers: {
+        'Authorization': `bearer ${localStorage.getItem('access_token')}`
+        }})
+        .then(res => res.json())
+        .then((data) => {setProducts(data)}) 
+        .catch(console.error());
+    }
+
+    useEffect(() => {   // After render send call to resource server to return all products from db
+        getProducts();
     }, []);
 
     // Navigate to product details page
@@ -49,6 +54,18 @@ const ProductLookup = (props) => {
         }
     } 
 
+    const filterSuspended = () => {
+        setViewSuspended(true);
+        setProducts(products.filter(product => product.suspended === true));
+        setSearchResults(products.filter(product => product.name.toString().toLowerCase().includes('')));
+    }
+
+    const viewAllProducts = () => {
+        setViewSuspended(false);
+        getProducts();
+        setSearchResults(products.filter(product => product.name.toString().toLowerCase().includes('')));
+    }
+
     return (
         <div>
             <center><h2>Product Lookup</h2>
@@ -57,7 +74,11 @@ const ProductLookup = (props) => {
                 <div/> :
                 <div className="btn-group container md-form mr-auto col-md-10 mb-3 text-center">
                     <Button className="btn btn-rounded my-0" variant="outline-info" onClick={() => {setModal(true)}}>Add New Product</Button>
-                    <Button className="btn btn-rounded my-0" variant="outline-danger" type="submit">View Suspended Products</Button>
+                    {
+                        viewSuspended === false ?
+                        <Button className="btn btn-rounded my-0" variant="outline-danger" onClick={() => {filterSuspended()}} type="submit">View Suspended Products</Button> :
+                        <Button className="btn btn-rounded my-0" variant="outline-info" onClick={() => {viewAllProducts()}} type="submit">View All Products</Button>
+                    }
                 </div>
             }
             </center>
