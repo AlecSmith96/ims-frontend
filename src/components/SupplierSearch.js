@@ -1,37 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import {useHistory} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
+import {useHistory} from 'react-router-dom';
 
 
-const CustomerSearch = () => {
+const SupplierSearch = () => {
     const history = useHistory();
-    const [customers, setCustomers] = React.useState([{}]);
+    const [suppliers, setSuppliers] = React.useState([{}]);
     const [searchResults, setSearchResults] = React.useState([{}]);
     const [searchTerm, setSearchTerm] = React.useState('');
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/customers/all', {
+        fetch('http://localhost:8080/api/suppliers/all', {
             method: 'GET',
             headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`
             }})
             .then(res => res.json())
-            .then((data) => {setCustomers(data)}) 
+            .then((data) => {setSuppliers(data)}) 
             .catch(console.error());
     }, []);
 
     // Navigate to customer details page
-    const handleClick = (customer) => {
-        history.push({pathname:`/customer/${customer.id}`, state: customer});
+    const handleClick = (supplier) => {
+        history.push({pathname:`/supplier/${supplier.id}`, state: supplier});
     }
 
     // Filter all customers by characters found in text box
     const handleChange = e => {
         setSearchTerm(e.target.value);
-        const results = customers.filter(customer => customer.first_name.toString().toLowerCase().includes(e.target.value) || 
-                                        customer.last_name.toString().toLowerCase().includes(e.target.value) ||
-                                        customer.email.toString().toLowerCase().includes(e.target.value) ||
-                                        customer.phone_number.toString().toLowerCase().includes(e.target.value));
+        const results = suppliers.filter(supplier => supplier.id.toString().toLowerCase().includes(e.target.value) || 
+                                        supplier.name.toString().toLowerCase().includes(e.target.value));
         setSearchResults(results);
       };
 
@@ -43,7 +41,7 @@ const CustomerSearch = () => {
                 </div>
 
                 <div className="col-md-1"></div>
-                <h2>Search for a Customer</h2>
+                <h2>Search for a Supplier</h2>
             </div>
 
             <input className="form-control mb-4" id="tableSearch" type="text"
@@ -51,23 +49,17 @@ const CustomerSearch = () => {
             <table className="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
+                    <th>Id</th>
+                    <th>Name</th>
                 </tr>
                 </thead>
-                <tbody id="products">
+                <tbody id="suppliers">
                 {
-                    searchResults.map((customer) => {
+                    searchResults.map((suppliers) => {
                         return (
-                            <tr key={customer.id} onClick={() => handleClick(customer)}>
-                                <td>{customer.title}</td>
-                                <td>{customer.first_name}</td>
-                                <td>{customer.last_name}</td>
-                                <td>{customer.email}</td>
-                                <td>{customer.phone_number}</td>
+                            <tr key={suppliers.id} onClick={() => handleClick(suppliers)}>
+                                <td>{suppliers.id}</td>
+                                <td>{suppliers.name}</td>
                             </tr>
                         )
                     })
@@ -78,4 +70,4 @@ const CustomerSearch = () => {
     )
 }
 
-export default CustomerSearch;
+export default SupplierSearch;

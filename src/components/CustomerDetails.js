@@ -72,6 +72,7 @@ const CustomerDetails = () => {
                     </thead>
                     <tbody>
                         {
+                            customerOrders.length === 0 ? <center><tr><td colspan="3">No orders for this customer on record</td></tr></center> :
                             customerOrders.map((order) => {
                                 return(
                                     <tr key={order.id} onClick={() => handleClick(order)}>

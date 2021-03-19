@@ -14,6 +14,8 @@ import PurchaseDetails from './components/PurchaseDetails';
 import ReportViewer from './components/ReportViewer';
 import CustomerSearch from './components/CustomerSearch';
 import CustomerDetails from './components/CustomerDetails';
+import SupplierSearch from './components/SupplierSearch';
+import SupplierDetails from './components/SupplierDetails';
 
 function App() {
   const [status, updateStatus] = useState('');
@@ -76,6 +78,8 @@ function App() {
           <Route path="/report/:reportName" component={ReportViewer}/>
           <Route path="/customers" component={CustomerSearch}/>
           <Route path="/customer/:id" component={CustomerDetails}/>
+          <Route path="/suppliers" component={SupplierSearch}/>
+          <Route path="/supplier/:id" component={SupplierDetails} />
         </Switch>
       </Router>
     </div>

@@ -32,10 +32,11 @@ const PurchaseOrders = () => {
                 <h2>Purchase Orders</h2>
 
                 <form className="">
-                    <div className="row w-100 mb-1">
+                    <div className="row w-100 mb-1 btn-group">
                         {/* THIS CAN BE USED TO INCLUDE BUTTONS TO FILTER TABLE */}
                         <Button className='btn btn-rounded float-right' onClick={() => setModal(true)} variant="outline-info">Create New</Button>
-                        <Button className='btn btn-rounded float-right ml-1' onClick={() => setDeliveredModal(true)} variant="outline-info">Record order delivery</Button>
+                        <Button className='btn btn-rounded float-right' onClick={() => setDeliveredModal(true)} variant="outline-info">Record order delivery</Button>
+                        <Button className='btn btn-rounded float-right' onClick={() => history.push('/suppliers')} variant="outline-info">Supplier Search</Button>
                     </div>
                 </form>
 

@@ -57,13 +57,11 @@ const ProductLookup = (props) => {
     const filterSuspended = () => {
         setViewSuspended(true);
         setProducts(products.filter(product => product.suspended === true));
-        setSearchResults(products.filter(product => product.name.toString().toLowerCase().includes('')));
     }
 
     const viewAllProducts = () => {
         setViewSuspended(false);
         getProducts();
-        setSearchResults(products.filter(product => product.name.toString().toLowerCase().includes('')));
     }
 
     return (
