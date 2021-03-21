@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import { WatchDirectoryKind } from 'typescript';
 
 /**
  * Component to show Purchase Order form to create a new Purchase Order.
@@ -12,6 +13,7 @@ const NewPurchaseOrder = (props) => {
     const [filteredProducts, setFilteredProducts] = useState([{}])
     const [selectedSupplier, setSelectedSupplier] = useState('Choose...');
     const [fields, setFields] = useState([{}]);
+    const [reportResponse, setReportResponse] = useState('');   // set html report response to this
 
 
     useEffect(() => {
@@ -70,8 +72,6 @@ const NewPurchaseOrder = (props) => {
                             'Content-Type': 'application/json'},
                 body: data
             })
-            .then(res => res.json())
-            .then((data) => {setProducts(data)})
             .catch(console.error());
       }
 
@@ -99,7 +99,7 @@ const NewPurchaseOrder = (props) => {
                     </div>
                     <p className="lead">The quantity ordered will be the standard reorder amount for that product.</p>
                     <div className="row w-100">
-                        <span className="ml-3 align-middle">Products:</span>
+                        <span className="ml-3 align-middle mr-1">Products:</span>
                         {selectedSupplier === 'Choose...' ? <div/> : <Button className="float-right" variant="info" type="button" onClick={() => handleAdd()}>Add</Button>}
                     </div>
                     <div className="form-group row">
@@ -122,6 +122,7 @@ const NewPurchaseOrder = (props) => {
                             })
                         }
                     </div>
+                    <p className="lead">An email confirmation will be sent to the manager email for your business.</p>
             </Modal.Body>
 
             <Modal.Footer className="bg-light">
