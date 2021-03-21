@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import WasteReportComponent from './WasteReportComponent';
 import StockMovementComponent from './StockMovementComponent';
+import OrderSummaryComponent from './OrderSummaryComponent';
+import PurchaseSummaryComponent from './PurchaseSummaryComponent';
 
 const ReportsDashboard = () => {
     const [reportState, setReportState] = useState('');
@@ -20,8 +22,8 @@ const ReportsDashboard = () => {
                 </div>
                 <div className="col">
                     {reportState === 'stock-movement' ? <StockMovementComponent/> : <div/>}
-                    {reportState === 'order-summary' ? <WasteReportComponent/> : <div/>}
-                    {reportState === 'purchase-summary' ? <WasteReportComponent/> : <div/>}
+                    {reportState === 'order-summary' ? <OrderSummaryComponent/> : <div/>}
+                    {reportState === 'purchase-summary' ? <PurchaseSummaryComponent/> : <div/>}
                     {reportState === 'waste' ? <WasteReportComponent/> : <div/>}
                 </div>
         </div>
