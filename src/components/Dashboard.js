@@ -1,10 +1,17 @@
 import { stringify } from 'querystring';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 import {useLocation} from 'react-router-dom';
+import AddNewUser from './AddNewUser';
+import EditUser from './EditUser';
 import '../styles/Global.css';
+import NewPassword from './NewPassword';
 
 const Dashboard = (props) => {
     const {state} = useLocation();
+    const [showAddUserModal, setShowAddUserModal] = useState(false);
+    const [showEditUserModal, setShowEditUserModal] = useState(false);
+    const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem("user") !== null)
@@ -30,21 +37,29 @@ const Dashboard = (props) => {
                             </div>
                             <div className="col">
                                 <div className="jumbotron container">
-                                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
-                                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                                    <h2>Products close to reorder point</h2>
                                 </div>
                             </div>
                             <div className="w-100"></div>
                             <div className="col">
                                 <div className="jumbotron container ">
-                                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
-                                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                                    <h2>User Accounts</h2>
+                                    {
+                                        localStorage.getItem('authorities') === 'USER' ? 
+                                        <Button className="form-control" variant="outline-info" onClick={() => setShowNewPasswordModal(true)}>Update My Password</Button>
+                                        :
+                                        <div>
+                                            <Button className="form-control" variant="outline-info" onClick={() => setShowNewPasswordModal(true)}>Update My Password</Button>
+                                            <Button className="form-control mt-1" variant="outline-info" onClick={() => setShowAddUserModal(true)}>New User</Button>
+                                            <Button className="form-control mt-1" variant="warning" onClick={() => setShowEditUserModal(true)}>Edit User</Button>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="jumbotron container">
-                                    <h2> Welcome {localStorage.getItem('user_name')}</h2>
-                                    <h3>Authority: {localStorage.getItem('authorities')}</h3>
+                                    <h2>Daily Waste</h2>
+                                    <Button className="form-control" variant="outline-info">Submit Daily Wate Report</Button>
                                 </div>
                             </div>
                         </div>
@@ -62,6 +77,9 @@ const Dashboard = (props) => {
                 </div>
             }
             </center>
+            <AddNewUser showModal={showAddUserModal} setModal={setShowAddUserModal} />
+            <EditUser showModal={showEditUserModal} setModal={setShowEditUserModal} />
+            <NewPassword showModal={showNewPasswordModal} setModal={setShowNewPasswordModal} />
         </div>
     );
 }

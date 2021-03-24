@@ -75,8 +75,6 @@ const NewPurchaseOrder = (props) => {
             .catch(console.error());
       }
 
-      // https://dev.to/email2vimalraj/dynamic-form-fields-using-react-35ci
-
     return (
         <Modal show={props.showModal} onHide={() => props.setModal(false)}>
             <Modal.Header className="bg-light" closeButton>
