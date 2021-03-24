@@ -16,6 +16,7 @@ import CustomerSearch from './components/CustomerSearch';
 import CustomerDetails from './components/CustomerDetails';
 import SupplierSearch from './components/SupplierSearch';
 import SupplierDetails from './components/SupplierDetails';
+import WasteReportComponent from './components/WasteReportComponent';
 
 function App() {
   const [status, updateStatus] = useState('');
@@ -80,6 +81,7 @@ function App() {
           <Route path="/customer/:id" component={CustomerDetails}/>
           <Route path="/suppliers" component={SupplierSearch}/>
           <Route path="/supplier/:id" component={SupplierDetails} />
+          <Route path="/waste" component={WasteReportComponent} />
         </Switch>
       </Router>
     </div>

@@ -1,7 +1,7 @@
 import { stringify } from 'querystring';
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import {useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import AddNewUser from './AddNewUser';
 import EditUser from './EditUser';
 import '../styles/Global.css';
@@ -9,6 +9,7 @@ import NewPassword from './NewPassword';
 
 const Dashboard = (props) => {
     const {state} = useLocation();
+    const history = useHistory();
     const [showAddUserModal, setShowAddUserModal] = useState(false);
     const [showEditUserModal, setShowEditUserModal] = useState(false);
     const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
@@ -59,7 +60,7 @@ const Dashboard = (props) => {
                             <div className="col">
                                 <div className="jumbotron container">
                                     <h2>Daily Waste</h2>
-                                    <Button className="form-control" variant="outline-info">Submit Daily Wate Report</Button>
+                                    <Button className="form-control" variant="outline-info" onClick={() => history.push('/waste')}>Submit Waste Report</Button>
                                 </div>
                             </div>
                         </div>

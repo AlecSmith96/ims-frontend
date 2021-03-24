@@ -49,8 +49,10 @@ const WasteReportComponent = () => {
 
     return (
         <div>
-            <h5>Create new waste report</h5>
-            <p className="lead">Enter the Sku, reason for wastage and quantity of stock for each item.</p>
+            <center>
+                <h5>Create new waste report</h5>
+                <p className="lead">Enter the Sku, reason for wastage and quantity of stock for each item.</p>
+            </center>
             <form onSubmit={handleSubmit}>
                 {
                         wasteRecords.map((record, index) => {
