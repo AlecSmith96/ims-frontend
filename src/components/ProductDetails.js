@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
+import ReorderAmountModal from './ReorderAmountModal';
 
 
 const ProductDetails = () => {
@@ -9,6 +10,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState({});
     const [orders, setOrders] = React.useState([{}]);
     const [purchases, setPurchases] = React.useState([{}]);
+    const [showReorderAmountModal, setShowReorderAmountModal] = useState(false);
 
 
     useEffect(() => {
@@ -126,7 +128,7 @@ const ProductDetails = () => {
                     localStorage.getItem('authorities') === 'USER' ? <div/> :
                     <div className="btn-group btn-block col-md-10" role="group">
                         <Button className='btn btn-secondary my-0'>Update Reorder Threshold</Button>
-                        <Button className='btn btn-secondary my-0'>Update Reorder Amount</Button>
+                        <Button className='btn btn-secondary my-0' onClick={() => setShowReorderAmountModal(true)}>Update Reorder Amount</Button>
                         {
                             product.suspended === false ? 
                             <Button className='btn btn-secondary my-0 bg-danger' onClick={() => { if (window.confirm('Are you sure you wish to suspend this product?')) suspendProduct()}}>Suspend Product</Button> :
@@ -229,7 +231,7 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </center>
-
+            <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} id={product.id} supplier={state.supplier}/>
             
             
 
