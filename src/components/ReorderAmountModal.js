@@ -12,7 +12,7 @@ useEffect(() => {
     // https://www.shipbob.com/blog/reorder-quantity-formula/
 
     // get average daily usage
-    fetch(`http://localhost:8080/api/product/adu/${props.id}`, {
+    fetch(`http://localhost:8080/api/product/adu/${props.supplier.id}`, {
             method: 'GET',
             headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`
