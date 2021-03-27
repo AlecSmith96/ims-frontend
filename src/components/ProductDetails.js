@@ -231,7 +231,7 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </center>
-            <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} id={product.id} supplier={state.supplier}/>
+            <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} setProduct={setProduct} id={product.id} supplier={state.supplier}/>
             
             
 

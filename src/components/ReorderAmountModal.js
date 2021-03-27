@@ -7,12 +7,12 @@ const ReorderAmountModal = (props) => {
     const [selectedAmount, setSelectedAmount] = useState(0);
     const [ADU, setADU] = useState(0);
 
-useEffect(() => {
-    // https://www.stitchlabs.com/learning-center/safety-stock-reorder-point-lead-time-calculate-formulas/
-    // https://www.shipbob.com/blog/reorder-quantity-formula/
+    useEffect(() => {
+        // https://www.stitchlabs.com/learning-center/safety-stock-reorder-point-lead-time-calculate-formulas/
+        // https://www.shipbob.com/blog/reorder-quantity-formula/
 
-    // get average daily usage
-    fetch(`http://localhost:8080/api/product/adu/${props.supplier.id}`, {
+        // get average daily usage
+        fetch(`http://localhost:8080/api/product/adu/${props.id}`, {
             method: 'GET',
             headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`
@@ -21,13 +21,23 @@ useEffect(() => {
             .then(res => setADU(res))
             .catch(console.error());
 
-    // reccommended amount = average daily usage x lead time
-    const amount = ADU * props.supplier.lead_time;
-    setReccommendedAmount(amount);
-}, [])
+        // reccommended amount = average daily usage x lead time
+        const amount = ADU * props.supplier.lead_time;
+        setReccommendedAmount(amount);
+    }, [props?.id])
 
     function handleSubmit() {
-
+        fetch(`http://localhost:8080/api/product/update/reorder-threshold/${props.id}`, {
+            method: 'POST',
+            body: `{"newThreshold": "${selectedAmount}"}`,
+            headers: {
+            'Authorization': `bearer ${localStorage.getItem('access_token')}`,
+            'Content-Type': 'application/json'
+        }})
+        // .then(response => response.json())
+        // .then(res => props.setProduct(res))
+        // .then(alert('Reorder Threshold Updated!'))
+        .catch(console.error());
     }
 
     return (
