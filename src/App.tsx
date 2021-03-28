@@ -11,7 +11,6 @@ import PurchaseOrders from './components/PurchaseOrders';
 import OrderDetails from './components/OrderDetails';
 import ReportsDashboard from './components/ReportsDashboard';
 import PurchaseDetails from './components/PurchaseDetails';
-import ReportViewer from './components/ReportViewer';
 import CustomerSearch from './components/CustomerSearch';
 import CustomerDetails from './components/CustomerDetails';
 import SupplierSearch from './components/SupplierSearch';
@@ -76,7 +75,6 @@ function App() {
           <Route path="/order/:id" component={OrderDetails} />
           <Route path="/purchase/:id" component={PurchaseDetails} />
           <Route path="/reports" component={ReportsDashboard} />
-          <Route path="/report/:reportName" component={ReportViewer}/>
           <Route path="/customers" component={CustomerSearch}/>
           <Route path="/customer/:id" component={CustomerDetails}/>
           <Route path="/suppliers" component={SupplierSearch}/>

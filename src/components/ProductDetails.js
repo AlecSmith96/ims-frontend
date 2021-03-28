@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import {useHistory, useLocation, useParams} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import ReorderAmountModal from './ReorderAmountModal';
 
 
 const ProductDetails = () => {
-    const {state} = useLocation();
+    let params = useParams();
     const history = useHistory();
     const [product, setProduct] = useState({});
     const [orders, setOrders] = React.useState([{}]);
@@ -15,7 +15,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
     async function fetchProduct() {
-        await fetch(`http://localhost:8080/api/product/${state.id}`,{
+        await fetch(`http://localhost:8080/api/product/${params.id}`,{
             method: 'GET',
             headers: {'Authorization': `bearer ${localStorage.getItem('access_token')}`}    
         })
@@ -27,7 +27,7 @@ const ProductDetails = () => {
 
     //GET open customer orders that contain this product
     async function fetchOrderData() {
-        await fetch(`http://localhost:8080/api/orders/product/${state.id}`, {
+        await fetch(`http://localhost:8080/api/orders/product/${params.id}`, {
         method: 'GET',
         headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`
@@ -40,7 +40,7 @@ const ProductDetails = () => {
 
     //GET open purchase orders that contain this product
     async function fetchPurchaseData() {
-        await fetch(`http://localhost:8080/api/purchases/product/${state.id}`, {
+        await fetch(`http://localhost:8080/api/purchases/product/${params.id}`, {
         method: 'GET',
         headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`
@@ -75,7 +75,7 @@ const ProductDetails = () => {
      * Sends POST request to suspend this product from trading.
      */
     function suspendProduct() {
-        fetch(`http://localhost:8080/api/product/suspend/${state.id}`, {
+        fetch(`http://localhost:8080/api/product/suspend/${params.id}`, {
                 method: 'POST',
                 headers: {'Authorization': 
                                 `bearer ${localStorage.getItem('access_token')}`
@@ -90,7 +90,7 @@ const ProductDetails = () => {
      * Sends POST request to reinstate this product to allow trading.
      */
     function reinstateProduct() {
-        fetch(`http://localhost:8080/api/product/reinstate/${state.id}`, {
+        fetch(`http://localhost:8080/api/product/reinstate/${params.id}`, {
                 method: 'POST',
                 headers: {'Authorization': 
                                 `bearer ${localStorage.getItem('access_token')}`
@@ -231,7 +231,7 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </center>
-            <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} setProduct={setProduct} id={product.id} supplier={state.supplier}/>
+            <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} setProduct={setProduct} id={product.id} supplier={product.supplier} product={product}/>
             
             
 

@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, Button} from 'react-bootstrap';
+import {useHistory} from 'react-router-dom';
 
 
 const ReorderAmountModal = (props) => {
+    const history = useHistory();
     const [reccommendedAmount, setReccommendedAmount] = useState(0);
     const [selectedAmount, setSelectedAmount] = useState(0);
     const [ADU, setADU] = useState(0);
+    const [supplier, setSupplier] = useState({});
 
     useEffect(() => {
         // https://www.stitchlabs.com/learning-center/safety-stock-reorder-point-lead-time-calculate-formulas/
@@ -16,15 +19,24 @@ const ReorderAmountModal = (props) => {
             method: 'GET',
             headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`
-            }})
-            .then(response => response.text())
-            .then(res => setADU(res))
-            .catch(console.error());
+        }})
+        .then(response => response.text())
+        .then(res => setADU(res))
+        .catch(console.error());
+
+        fetch(`http://localhost:8080/api/supplier/product/${props.id}`, {
+            method: 'GET',
+            headers: {
+            'Authorization': `bearer ${localStorage.getItem('access_token')}`
+        }})
+        .then(response => response.text())
+        .then(res => setSupplier(res))
+        .catch(console.error());
 
         // reccommended amount = average daily usage x lead time
-        const amount = ADU * props.supplier.lead_time;
+        const amount = ADU * supplier.lead_time;
         setReccommendedAmount(amount);
-    }, [props?.id])
+    }, [props?.id, props?.product?.supplier?.lead_time])
 
     function handleSubmit() {
         fetch(`http://localhost:8080/api/product/update/reorder-threshold/${props.id}`, {
@@ -34,9 +46,7 @@ const ReorderAmountModal = (props) => {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`,
             'Content-Type': 'application/json'
         }})
-        // .then(response => response.json())
-        // .then(res => props.setProduct(res))
-        // .then(alert('Reorder Threshold Updated!'))
+        .then(history.push({pathname:`/product/${props.id}`, state: props.product}))
         .catch(console.error());
     }
 
@@ -53,7 +63,7 @@ const ReorderAmountModal = (props) => {
                     </div>
                     <div className="form-group row">
                         <p className="lead ml-3 mr-3">Suggested reorder amount based on calculation: {reccommendedAmount}</p>
-                        <p className="lead ml-3 mr-3">(Calculation: average daily sales for last 2 weeks ({ADU}) x lead time ({props.supplier.lead_time}))</p>
+                        <p className="lead ml-3 mr-3">(Calculation: average daily sales for last 2 weeks ({ADU}) x lead time ({supplier.lead_time}))</p>
                     </div>
                     <div className="form-group row">
                         <label for="inputSupplier" className="col-form-label ml-3 mr-3">New Amount:</label>
