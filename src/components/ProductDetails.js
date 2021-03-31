@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {useHistory, useLocation, useParams} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import ReorderAmountModal from './ReorderAmountModal';
+import ReorderThresholdModal from './ReorderThresholdModal';
 
 
 const ProductDetails = () => {
@@ -11,6 +12,7 @@ const ProductDetails = () => {
     const [orders, setOrders] = React.useState([{}]);
     const [purchases, setPurchases] = React.useState([{}]);
     const [showReorderAmountModal, setShowReorderAmountModal] = useState(false);
+    const [showReorderThresholdModal, setShowReorderThresholdModal] = useState(false);
 
 
     useEffect(() => {
@@ -127,7 +129,7 @@ const ProductDetails = () => {
                 {   // Manager functions not available to USER accounts
                     localStorage.getItem('authorities') === 'USER' ? <div/> :
                     <div className="btn-group btn-block col-md-10" role="group">
-                        <Button className='btn btn-secondary my-0'>Update Reorder Threshold</Button>
+                        <Button className='btn btn-secondary my-0' onClick={() => setShowReorderThresholdModal(true)}>Update Reorder Threshold</Button>
                         <Button className='btn btn-secondary my-0' onClick={() => setShowReorderAmountModal(true)}>Update Reorder Amount</Button>
                         {
                             product.suspended === false ? 
@@ -232,7 +234,7 @@ const ProductDetails = () => {
                 </div>
             </center>
             <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} setProduct={setProduct} id={product.id} supplier={product.supplier} product={product}/>
-            
+            <ReorderThresholdModal showModal={showReorderThresholdModal} setModal={setShowReorderThresholdModal} setProduct={setProduct} id={product.id} supplier={product.supplier} product={product}/>
             
 
         </div>

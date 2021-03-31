@@ -3,7 +3,7 @@ import {Modal, Button} from 'react-bootstrap';
 import {useHistory} from 'react-router-dom';
 
 
-const ReorderAmountModal = (props) => {
+const ReorderThresholdModal = (props) => {
     const history = useHistory();
     const [reccommendedAmount, setReccommendedAmount] = useState(0);
     const [selectedAmount, setSelectedAmount] = useState(0);
@@ -42,9 +42,9 @@ const ReorderAmountModal = (props) => {
     }, [props?.id])
 
     function handleSubmit() {
-        fetch(`http://localhost:8080/api/product/update/reorder-amount/${props.id}`, {
+        fetch(`http://localhost:8080/api/product/update/reorder-threshold/${props.id}`, {
             method: 'POST',
-            body: `{"newAmount": "${selectedAmount}"}`,
+            body: `{"newThreshold": "${selectedAmount}"}`,
             headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`,
             'Content-Type': 'application/json'
@@ -56,20 +56,20 @@ const ReorderAmountModal = (props) => {
     return (
         <Modal show={props.showModal} onHide={() => props.setModal(false)}>
             <Modal.Header className="bg-light" closeButton>
-                <Modal.Title className="">Update product Reorder Amount</Modal.Title>
+                <Modal.Title className="">Update product Reorder Threshold</Modal.Title>
             </Modal.Header>
 
             <form onSubmit={() => handleSubmit()}>
             <Modal.Body>
                     <div className="form-group row">
-                        <p className="lead ml-3">Select a new reorder amount for this product.</p>
+                        <p className="lead ml-3">Select a new reorder threshold for this product.</p>
                     </div>
                     <div className="form-group row">
-                        <p className="lead ml-3 mr-3">Suggested Reorder Amount: {ADU * supplier.lead_time}</p>
-                        <p className="lead ml-3 mr-3">(Calculation: average daily sales for last 2 weeks ({ADU}) x lead time ({supplier.lead_time}))</p>
+                        <p className="lead ml-3 mr-3">Suggested Reorder Threshold: {ADU * supplier.lead_time * 3}</p>
+                        <p className="lead ml-3 mr-3">(Calculation: average daily sales for last 2 weeks ({ADU}) x lead time ({supplier.lead_time}) x 3 (in case of delay))</p>
                     </div>
                     <div className="form-group row">
-                        <label for="inputSupplier" className="col-form-label ml-3 mr-3">New Amount:</label>
+                        <label for="inputSupplier" className="col-form-label ml-3 mr-3">New Threshold:</label>
                         <div className="">
                             <input type="number" className="form-control" onChange={(e) => setSelectedAmount(e.target.value)} required/>
                         </div>
@@ -78,11 +78,11 @@ const ReorderAmountModal = (props) => {
 
             <Modal.Footer className="bg-light">
                 <Button variant="secondary" onClick={() => {props.setModal(false)}}>Close</Button>
-                    <input className="btn btn-info" type="submit" value="Update Amount" />
+                    <input className="btn btn-info" type="submit" value="Update Threshold" />
             </Modal.Footer>
             </form>
         </Modal>
     )
 }
 
-export default ReorderAmountModal;
+export default ReorderThresholdModal;
