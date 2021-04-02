@@ -32,7 +32,7 @@ const Dashboard = (props) => {
         .then(res => res.json())
         .then((data) => {setLowProductStock(data)})
         .catch(console.error());
-    })
+    }, [])
 
     const handleClick = (product) => {
         history.push({pathname:`/product/${product.id}`, state: product});
