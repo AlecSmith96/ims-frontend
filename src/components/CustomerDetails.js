@@ -57,7 +57,6 @@ const CustomerDetails = () => {
                     <div className="float-right text-right col">
                         <p>{customer.email}</p>
                         <p>Tel: {customer.phone_number}</p>
-                        <Button className='btn btn-rounded' variant="outline-info">Edit Details</Button>
                     </div>
                 </div>
             </div>

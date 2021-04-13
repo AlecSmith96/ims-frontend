@@ -233,8 +233,8 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </center>
-            <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} setProduct={setProduct} id={product.id} supplier={product.supplier} product={product}/>
-            <ReorderThresholdModal showModal={showReorderThresholdModal} setModal={setShowReorderThresholdModal} setProduct={setProduct} id={product.id} supplier={product.supplier} product={product}/>
+            <ReorderAmountModal showModal={showReorderAmountModal} setModal={setShowReorderAmountModal} setProduct={setProduct} id={product.id ? product.id : -1} supplier={product.supplier} product={product}/>
+            <ReorderThresholdModal showModal={showReorderThresholdModal} setModal={setShowReorderThresholdModal} setProduct={setProduct} id={product.id ? product.id : -1} supplier={product.supplier} product={product}/>
             
 
         </div>

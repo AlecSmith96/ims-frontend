@@ -44,7 +44,7 @@ const ReorderAmountModal = (props) => {
     function handleSubmit() {
         fetch(`http://localhost:8080/api/product/update/reorder-amount/${props.id}`, {
             method: 'POST',
-            body: `{"newAmount": "${selectedAmount}"}`,
+            body: `{"newAmount": ${selectedAmount}}`,
             headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`,
             'Content-Type': 'application/json'

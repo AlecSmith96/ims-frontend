@@ -44,7 +44,7 @@ const ReorderThresholdModal = (props) => {
     function handleSubmit() {
         fetch(`http://localhost:8080/api/product/update/reorder-threshold/${props.id}`, {
             method: 'POST',
-            body: `{"newThreshold": "${selectedAmount}"}`,
+            body: `{"newThreshold": ${selectedAmount}}`,
             headers: {
             'Authorization': `bearer ${localStorage.getItem('access_token')}`,
             'Content-Type': 'application/json'

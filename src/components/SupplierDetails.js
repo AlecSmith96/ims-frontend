@@ -5,6 +5,7 @@ import {Button} from 'react-bootstrap';
 const SupplierDetails = () => {
     const [supplier, setSupplier] = useState({});
     const [purchaseOrders, setPurchaseOrders] = useState([{}]);
+    const [supplierProducts, setSupplierProducts] = useState([{}]);
     const {state} = useLocation();
     const history = useHistory();
     
@@ -30,10 +31,25 @@ const SupplierDetails = () => {
             .catch(console.error)
         }
         fetchOrders();
+
+        async function fetchProducts() {
+            await fetch(`http://localhost:8080/api/supplier/products/${state.id}`,{
+                method: 'GET',
+                headers: {'Authorization': `bearer ${localStorage.getItem('access_token')}`}    
+            })
+            .then(res => res.json())
+            .then(response => setSupplierProducts(response))
+            .catch(console.error)
+        }
+        fetchProducts();
     }, [])
 
     function handleClick(purchase) {
         history.push({pathname:`/purchase/${purchase.id}`, state: purchase});
+    }
+
+    function handleProductClick(product) {
+        history.push({pathname:`/product/${product.id}`, state: product});
     }
 
     return (
@@ -55,6 +71,34 @@ const SupplierDetails = () => {
                 </div>
             </div>
             <center>
+                <h3>Available Products</h3>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Sku</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            supplierProducts.length === 0 ? <center><tr><td colspan="3">No products for this supplier on record</td></tr></center> :
+                            supplierProducts.map((product) => {
+                                return(
+                                    <tr key={product.id} onClick={() => handleProductClick(product)}>
+                                        <td>{product.id}</td>
+                                        <td>{product.name}</td>
+                                        <td>{product.sku}</td>
+                                        <td>{product.price}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+
+                <h3>Orders</h3>
                 <table className="table">
                     <thead>
                         <tr>
