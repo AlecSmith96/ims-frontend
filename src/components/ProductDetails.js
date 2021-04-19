@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {useHistory, useLocation, useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import ReorderAmountModal from './ReorderAmountModal';
 import ReorderThresholdModal from './ReorderThresholdModal';
 
-
+/**
+ * Functional component to display product details and orders containing this 
+ * product.
+ * @returns HTML page containing product details.
+ */
 const ProductDetails = () => {
     let params = useParams();
     const history = useHistory();
@@ -14,7 +18,10 @@ const ProductDetails = () => {
     const [showReorderAmountModal, setShowReorderAmountModal] = useState(false);
     const [showReorderThresholdModal, setShowReorderThresholdModal] = useState(false);
 
-
+    /**
+     * On mounting get product info, customer and supplier orders containing 
+     * product.
+     */
     useEffect(() => {
     async function fetchProduct() {
         await fetch(`http://localhost:8080/api/product/${params.id}`,{
@@ -52,9 +59,6 @@ const ProductDetails = () => {
         .catch(console.error);
     }
     fetchPurchaseData();
-    
-    console.log(JSON.stringify(orders));
-
     }, []);
 
     /**
@@ -104,7 +108,7 @@ const ProductDetails = () => {
     }
 
     /**
-     * Product Details reders:
+     * Product Details renders:
      * Manager function buttons for updating reorder threshold, updating reorder
      * amount and suspending a product / reinstating a product
      */

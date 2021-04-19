@@ -1,9 +1,17 @@
 import React, { useState }  from 'react';
 
+/**
+ * Functional component for entering time frame of stock movement report to 
+ * generate.
+ * @returns - HTML form.
+ */
 const StockMovementComponent = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+    /**
+     * Send report generation request for given time frame.
+     */
     function submitStockMovementRequest() {
         fetch(`http://localhost:8080/api/reports/stock-movement/${startDate}/${endDate}`, {
             method: 'GET',

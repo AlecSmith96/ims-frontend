@@ -7,6 +7,13 @@ import EditUser from './EditUser';
 import '../styles/Global.css';
 import NewPassword from './NewPassword';
 
+/**
+ * Functional component for the homepage of the app. If signed in, Quick 
+ * functions including user accounts, daily waste report and products low on 
+ * stock also only rendered on successful sign in.
+ * @param {*} props - login credentials from '/login_callback'
+ * @returns Dashboard
+ */
 const Dashboard = (props) => {
     const {state} = useLocation();
     const history = useHistory();
@@ -15,6 +22,10 @@ const Dashboard = (props) => {
     const [showEditUserModal, setShowEditUserModal] = useState(false);
     const [showNewPasswordModal, setShowNewPasswordModal] = useState(false);
 
+    /**
+     * On mounting, save user credentials to local storage, and get list of 
+     * products that are low on stock.
+     */
     useEffect(() => {
         if (localStorage.getItem("user") !== null)
         {
@@ -34,6 +45,7 @@ const Dashboard = (props) => {
         .catch(console.error());
     }, [])
 
+    // Navigate to ProductDetails page for selected product.
     const handleClick = (product) => {
         history.push({pathname:`/product/${product.id}`, state: product});
     }

@@ -5,6 +5,10 @@ import StockMovementComponent from './StockMovementComponent';
 import OrderSummaryComponent from './OrderSummaryComponent';
 import PurchaseSummaryComponent from './PurchaseSummaryComponent';
 
+/**
+ * Functional Component to render manager dashboard for all report generation.
+ * @returns - HTML component.
+ */
 const ReportsDashboard = () => {
     const [reportState, setReportState] = useState('');
 

@@ -3,7 +3,11 @@ import {useHistory} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import NewProduct from './NewProduct';
 
-const ProductLookup = (props) => {
+/**
+ * Functional component to search for a product in the database. 
+ * @returns searchable HTML table of products.
+ */
+const ProductLookup = () => {
     const history = useHistory();
     const [sku, setSku] = useState('');
     const [products, setProducts] = useState([{}]);
@@ -19,6 +23,7 @@ const ProductLookup = (props) => {
         setSearchResults(results);
       };
 
+    // Get all products from database.
     function getProducts() {
         fetch('http://localhost:8080/api/products', {
         method: 'GET',
@@ -30,6 +35,9 @@ const ProductLookup = (props) => {
         .catch(console.error());
     }
 
+    /**
+     * On mounting get all products from database.
+     */
     useEffect(() => {   // After render send call to resource server to return all products from db
         getProducts();
     }, []);
@@ -39,10 +47,12 @@ const ProductLookup = (props) => {
         history.push({pathname:`/product/${product.id}`, state: product});
     }
 
+    // update sku state
     const handleSkuChange = (event) => {
         setSku(event.target.value);
     }
 
+    // search all products based on input sku value
     const searchBySku = () => {
         const product = products.find(product => product.sku.toString() === sku)
 
@@ -54,11 +64,13 @@ const ProductLookup = (props) => {
         }
     } 
 
+    // filter searchable products by suspended
     const filterSuspended = () => {
         setViewSuspended(true);
         setProducts(products.filter(product => product.suspended === true));
     }
 
+    // set all products as searchable
     const viewAllProducts = () => {
         setViewSuspended(false);
         getProducts();

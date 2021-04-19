@@ -2,6 +2,11 @@ import { userInfo } from 'os';
 import React, {useState, useEffect} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
+/**
+ * Functional component for rendering a form to edit a User's details.
+ * @param {*} props - showModal, setModal - boolean to render component.
+ * @returns HTML form for updating a Users details.
+ */
 const EditUser = (props) => {
     const [users, setUsers] = useState([{}]);
     const [roles, setRoles] = useState([{}]);
@@ -11,6 +16,9 @@ const EditUser = (props) => {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
+    /**
+     * On mounting get all Users and Roles available.
+     */
     useEffect(() => {
         fetch('http://localhost:9090/users/all', {
             method: 'GET',
@@ -31,6 +39,9 @@ const EditUser = (props) => {
         .catch(console.error());
     }, []);
 
+    /**
+     * Send updated details to resource server to update the User record.
+     */
     function sendUserUpdate() {
         if (window.confirm(`Are you sure you would like to update ${user.username}'s details?`)) {
             var json = `{"username": "${username}", "email": "${email}", "role":"${role}"}`;
@@ -48,6 +59,9 @@ const EditUser = (props) => {
         }
     }
 
+    /**
+     * Send POST request to reset the Users password to default 'password'.
+     */
     function resetPassword() {
         // send post request
         if (window.confirm(`Password for ${user.username} will be reset to 'password', continue?`)) {
@@ -62,6 +76,10 @@ const EditUser = (props) => {
         }
     }
 
+    /**
+     * Fill input fields with values from selected User.
+     * @param {*} user - the user selected from drop down list.
+     */
     function updateUser(user) {
         setUser(user);
         setUsername(user.username);

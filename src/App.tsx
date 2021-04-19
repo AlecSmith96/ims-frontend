@@ -56,7 +56,7 @@ function App() {
             }
         {localStorage.getItem('user_name') === null ?
           <Navbar.Text  className='text-white'>Not signed in: <Button  className='text-white' href='/login' variant="outline-info">Sign In</Button></Navbar.Text> :
-          <Navbar.Text  className='text-white'>Signed in as: {localStorage.getItem('user_name')} <Button onClick={() => {localStorage.clear(); /*updateStatus('logged out');*/ }} href="/logout" className='text-white' variant="outline-info">Sign Out</Button></Navbar.Text> }
+          <Navbar.Text  className='text-white'>Signed in as: {localStorage.getItem('user_name')} <Button onClick={() => {localStorage.clear()}} href="/logout" className='text-white' variant="outline-info">Sign Out</Button></Navbar.Text> }
         </Navbar.Collapse>
       </Navbar>
       

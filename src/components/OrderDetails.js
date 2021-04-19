@@ -2,8 +2,10 @@ import React from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
 import {Button, Card as p} from 'react-bootstrap';
 
-
-
+/**
+ * Functional component for viewing the details of a Customer Order.
+ * @returns HTML page containing customer details.
+ */
 const OrderDetails = () => {
     const {state} = useLocation();
     const history = useHistory();

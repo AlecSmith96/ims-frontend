@@ -2,10 +2,17 @@ import React from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 
+/**
+ * Functional component to display the details of supplier order.
+ */
 const PurchaseDetails = () => {
     const {state} = useLocation();
     const history = useHistory();
 
+    /**
+     * submit POST request to create new supplier order for the same products
+     * as this supplier order.
+     */
     function handleReorder() {
         fetch(`http://localhost:8080/api/purchase/reorder/${state.id}`, {
                 method: 'POST',

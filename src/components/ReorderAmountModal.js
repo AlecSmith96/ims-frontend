@@ -2,18 +2,22 @@ import React, {useEffect, useState} from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import {useHistory} from 'react-router-dom';
 
-
+/**
+ * Functional component for rendering a modal form to update the reorder amount
+ * for a selected product.
+ * @param {*} props - the id of the product.
+ * @returns HTML form.
+ */
 const ReorderAmountModal = (props) => {
     const history = useHistory();
-    const [reccommendedAmount, setReccommendedAmount] = useState(0);
     const [selectedAmount, setSelectedAmount] = useState(0);
     const [ADU, setADU] = useState(0);
     const [supplier, setSupplier] = useState({});
 
+    /**
+     * On mounting get average daily usage and the supplier of product.
+     */
     useEffect(() => {
-        // https://www.stitchlabs.com/learning-center/safety-stock-reorder-point-lead-time-calculate-formulas/
-        // https://www.shipbob.com/blog/reorder-quantity-formula/
-
         // get average daily usage
         fetch(`http://localhost:8080/api/product/adu/${props.id}`, {
             method: 'GET',
@@ -35,12 +39,11 @@ const ReorderAmountModal = (props) => {
         .then(response => response.json())
         .then(res => setSupplier(res))
         .catch(console.error());
-
-        // reccommended amount = average daily usage x lead time
-        // const amount = ADU * supplier.lead_time;
-        // setReccommendedAmount(amount);
     }, [props?.id])
 
+    /**
+     * Update reorder amount for product entered by the user.
+     */
     function handleSubmit() {
         fetch(`http://localhost:8080/api/product/update/reorder-amount/${props.id}`, {
             method: 'POST',

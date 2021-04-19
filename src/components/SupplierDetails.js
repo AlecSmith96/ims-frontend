@@ -2,6 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 
+/**
+ * Functional component viewing the details of a specific supplier.
+ * @returns - HTML page.
+ */
 const SupplierDetails = () => {
     const [supplier, setSupplier] = useState({});
     const [purchaseOrders, setPurchaseOrders] = useState([{}]);
@@ -9,6 +13,10 @@ const SupplierDetails = () => {
     const {state} = useLocation();
     const history = useHistory();
     
+    /**
+     * On mounting fetch all Suppler details, orders and products for given 
+     * Supplier from resource server.
+     */
     useEffect(() => {
         async function fetchCustomer() {
             await fetch(`http://localhost:8080/api/supplier/${state.id}`,{
@@ -44,10 +52,12 @@ const SupplierDetails = () => {
         fetchProducts();
     }, [])
 
+    // View details for selected purchase order.
     function handleClick(purchase) {
         history.push({pathname:`/purchase/${purchase.id}`, state: purchase});
     }
 
+    // View details for selected product.
     function handleProductClick(product) {
         history.push({pathname:`/product/${product.id}`, state: product});
     }

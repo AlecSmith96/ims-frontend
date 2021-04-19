@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 
+/**
+ * Functional component for submitting request to generate Order summary report.
+ * @returns HTML form to input timeframe of orders.
+ */
 const OrderSummaryComponent = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+    /**
+     * Submit POST request to generate HTML report.
+     */
     function submitOrderSummaryRequest() {
         fetch(`http://localhost:8080/api/reports/order-summary/${startDate}/${endDate}`, {
             method: 'GET',

@@ -1,10 +1,19 @@
 import React, {useState} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
+/**
+ * Functional component to show form to update a Users password.
+ * @param {*} props showModal, setNodal - boolean to render the component.
+ * @returns HTML form for updating a users password.
+ */
 const NewPassword = (props) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    /**
+     * Function to send POST request to update the users password to passed 
+     * value.
+     */
     function handleSubmit() {
         const username = localStorage.getItem('user_name');
 

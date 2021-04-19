@@ -2,13 +2,19 @@ import React, { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 
-
+/**
+ * Functional Component for displaying all Customers in a searchable table.
+ * @returns Searchable table.
+ */
 const CustomerSearch = () => {
     const history = useHistory();
     const [customers, setCustomers] = React.useState([{}]);
     const [searchResults, setSearchResults] = React.useState([{}]);
     const [searchTerm, setSearchTerm] = React.useState('');
 
+    /**
+     * On mounting return all customer objects.
+     */
     useEffect(() => {
         fetch('http://localhost:8080/api/customers/all', {
             method: 'GET',

@@ -1,15 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import {Button, Modal} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import NewPurchaseOrder from './NewPurchaseOrder';
 import SetDeliveredPurchaseOrder from './SetDeliveredPurchaseOrder';
 
+/**
+ * Functional component for viewing all supplier orders.
+ * @returns HTML table of all supplier order in the database
+ */
 const PurchaseOrders = () => {
     const [purchases, setPurchases] = useState([{}]);
     const [showModal, setModal] = useState(false);                      // for displaying new purchase order modal
     const [showDeliveredModal, setDeliveredModal] = useState(false);    // for setting purchase order to delivered
     const history = useHistory();
 
+    /**
+     * On mounting get all supplier orders from the database.
+     */
     useEffect(() => {
         fetch('http://localhost:8080/api/purchases/all', {
             method: 'GET',

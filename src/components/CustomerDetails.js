@@ -1,13 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import {Button} from 'react-bootstrap';
 
+/**
+ * Functional Component for displaying the details and orders for a Customer.
+ * @returns HTML page with Customer details.
+ */
 const CustomerDetails = () => {
     const [customer, setCustomer] = useState({});
     const [customerOrders, setCustomerOrders] = useState([{}]);
     const {state} = useLocation();
     const history = useHistory();
     
+    /**
+     * On mounting fetch Customer object and all orders for the customer.
+     */
     useEffect(() => {
         async function fetchCustomer() {
             await fetch(`http://localhost:8080/api/customers/${state.id}`,{
@@ -32,6 +38,10 @@ const CustomerDetails = () => {
         fetchOrders();
     }, [])
 
+    /**
+     * Navigate to OrderDetails page for selected order.
+     * @param {*} order 
+     */
     function handleClick(order) {
         history.push({pathname:`/order/${order.id}`, state: order});
     }

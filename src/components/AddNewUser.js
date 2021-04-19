@@ -2,6 +2,11 @@ import React, {useState} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useEffect } from 'react';
 
+/**
+ * Functional component for adding a new user to the system.
+ * @param {*} props showModal, setModal - boolean to render component.
+ * @returns - HTML form for adding a new User.
+ */
 const AddNewUser = (props) => {
     const [roles, setRoles] = useState([{}]);
     const [username, setUsername] = useState('');
@@ -9,6 +14,9 @@ const AddNewUser = (props) => {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
+    /**
+     * Send POST request for submitting new user to resource server.
+     */
     function submitNewUser() {
         var json = `{"username": "${username}", "email": "${email}", 
                                 "password": "${password}", "role":"${role}"}`;
@@ -25,6 +33,9 @@ const AddNewUser = (props) => {
         .catch(console.error());
     }
 
+    /**
+     * On mounting of component, get all available user roles 
+     */
     useEffect(() => {
         fetch('http://localhost:9090/users/roles', {
             method: 'GET',

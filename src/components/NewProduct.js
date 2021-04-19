@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {Modal, Button} from 'react-bootstrap';
 
-
+/**
+ * Functional component for rendering form for adding a new Product to the 
+ * database.
+ * @param {*} props showModal, setModal - boolean to render the component.
+ * @returns HTML form.
+ */
 const NewProduct = (props) => {
     const [supplierNames, setSupplierNames] = useState(['']);
     const [name, setName] = useState('');
@@ -12,6 +17,9 @@ const NewProduct = (props) => {
     const [reorderAmount, setReorderAmount] = useState(0);
     const [supplierName, setSupplierName] = useState('');
 
+    /**
+     * On mounting return the names of all the suppliers in the database.
+     */
     useEffect(() => {
         //get supplier names
         fetch('http://localhost:8080/api/suppliers/all-names', {

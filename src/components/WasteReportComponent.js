@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 
+/**
+ * Functional component for creating an HTML waste report to be sent to the 
+ * management email address.
+ * @returns - HTML form.
+ */
 const WasteReportComponent = () => {
     const [wasteRecords, setWasteRecords] = useState([{sku: '', reason: '', quantity: 0}]);
 
+    /**
+     * Send waste records to resource server to generate HTML report.
+     */
     function handleSubmit() {
-        const records = `${JSON.stringify(wasteRecords)}`;
-        console.log(records);
-        
+        const records = `${JSON.stringify(wasteRecords)}`;        
         fetch('http://localhost:8080/api/reports/waste', {
                 method: 'POST',
                 headers: {'Authorization': `bearer ${localStorage.getItem('access_token')}`,
@@ -17,30 +23,35 @@ const WasteReportComponent = () => {
             .catch(console.error());
     }
 
+    // add record to state
     function addWasteRecord() {
         const values = [...wasteRecords];
         values.push({sku: '', reason: '', quantity: 0})
         setWasteRecords(values);
     }
 
+    // update sku value of record
     function handleSkuChange(i, event) {
         const values = [...wasteRecords];
         values[i].sku = event.target.value;
         setWasteRecords(values);
     }
 
+    // update reason value of record
     function handleReasonChange(i, event) {
         const values = [...wasteRecords];
         values[i].reason = event.target.value;
         setWasteRecords(values);
     }
 
+    // update quantity value of record
     function handleQuantityChange(i, event) {
         const values = [...wasteRecords];
         values[i].quantity = event.target.value;
         setWasteRecords(values);
     }
 
+    // remove record from state
     function handleRemove(index) {
         const values = [...wasteRecords];
         values.splice(index, 1);

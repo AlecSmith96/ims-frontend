@@ -4,10 +4,17 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import '../styles/Global.css';
 
+/**
+ * Functional Component for displaying all customer orders in the system.
+ * @returns 
+ */
 const CustomerOrders = () => {
     const history = useHistory();
     const [orders, setOrders] = useState([{}]);
 
+    /**
+     * On mounting return all Customer orders from resource server.
+     */
     useEffect(() => {
         fetch('http://localhost:8080/api/orders/all', {
             method: 'GET',
@@ -24,6 +31,7 @@ const CustomerOrders = () => {
         history.push({pathname:`/order/${order.id}`, state: order});
     }
 
+    // Redirect to Customer search page
     function navigateToCustomerSearch() {
         history.push('/customers');
     }
@@ -64,7 +72,6 @@ const CustomerOrders = () => {
                     }
                     </tbody>
                 </table>
-                {/* // https://mdbootstrap.com/docs/react/tables/pagination/ */}
             </div>
             </center>
         </>
@@ -72,5 +79,3 @@ const CustomerOrders = () => {
 }
 
 export default CustomerOrders;
-
-// https://medium.com/@gustavo.ponce.ch/generating-pdf-documents-using-java-a29f90fbbd52

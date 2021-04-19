@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {Button} from 'react-bootstrap';
 import {useHistory} from 'react-router-dom';
 
-
+/**
+ * Functional component to search for a supplier.
+ * @returns - HTML searchable table.
+ */
 const SupplierSearch = () => {
     const history = useHistory();
     const [suppliers, setSuppliers] = React.useState([{}]);
     const [searchResults, setSearchResults] = React.useState([{}]);
     const [searchTerm, setSearchTerm] = React.useState('');
 
+    /**
+     * On mounting get all supplier from resource server.
+     */
     useEffect(() => {
         fetch('http://localhost:8080/api/suppliers/all', {
             method: 'GET',

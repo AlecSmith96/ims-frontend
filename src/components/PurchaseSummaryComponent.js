@@ -1,9 +1,17 @@
 import React, {useState} from 'react';
 
+/**
+ * Functonal component for generating HTML report containing supplier orders 
+ * in a given time frame.
+ * @returns HTML form for generating report.
+ */
 const PurchaseSummaryComponent = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+    /**
+     * Send POST request to generate the report.
+     */
     function submitOrderSummaryRequest() {
         fetch(`http://localhost:8080/api/reports/purchase-summary/${startDate}/${endDate}`, {
             method: 'GET',
