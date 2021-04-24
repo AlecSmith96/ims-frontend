@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { MDBDataTable, MDBTableHead, MDBTableBody } from 'mdbreact';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import '../styles/Global.css';

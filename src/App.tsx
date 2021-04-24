@@ -16,7 +16,12 @@ import CustomerDetails from './components/CustomerDetails';
 import SupplierSearch from './components/SupplierSearch';
 import SupplierDetails from './components/SupplierDetails';
 import WasteReportComponent from './components/WasteReportComponent';
+import Documentation from './components/Documentation';
 
+/**
+ * Main component for handling navigation through app.
+ * @returns - HTML wrapper component.
+ */
 function App() {
   const [status, updateStatus] = useState('');
 
@@ -52,6 +57,7 @@ function App() {
                 <Nav.Link className="text-white" href="/reports">Reports</Nav.Link> :
                 <Nav.Link className="text-white" href="/waste">Waste Report</Nav.Link>
               }
+              <Nav.Link className="text-white" href="/help">Help</Nav.Link>
               </Nav>
             }
         {localStorage.getItem('user_name') === null ?
@@ -80,6 +86,7 @@ function App() {
           <Route path="/suppliers" component={SupplierSearch}/>
           <Route path="/supplier/:id" component={SupplierDetails} />
           <Route path="/waste" component={WasteReportComponent} />
+          <Route path="/help" component={Documentation} />
         </Switch>
       </Router>
     </div>

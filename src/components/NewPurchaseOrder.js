@@ -1,7 +1,6 @@
 import React, {useEffect, useState, Fragment} from 'react';
 import {Modal, Button, Form} from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import { WatchDirectoryKind } from 'typescript';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 /**
@@ -10,8 +9,6 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
  */
 const NewPurchaseOrder = (props) => {
     const [products, setProducts] = useState([{}]);
-    // const [selectedSupplier, setSelectedSupplier] = useState('Choose...');
-    // const [fields, setFields] = useState([{}]);
     const [multiSelections, setMultiSelections] = useState([]);
 
     /**
@@ -27,12 +24,6 @@ const NewPurchaseOrder = (props) => {
             .then((data) => {setProducts(data)})
             .catch(console.error());
     }, [])
-    
-    //   function handleAdd() {
-    //     const values = [...fields];
-    //     values.push({ value: null });
-    //     setFields(values);
-    //   }
 
     /**
      * Send POST request for new supplier order.
@@ -59,21 +50,18 @@ const NewPurchaseOrder = (props) => {
             <form onSubmit={() => submitSupplierOrder()}>
             <Modal.Body>  
             <p className="lead">Select the products you would like to submit a purchase order for:</p>
-                    {/* <div className="row w-100">
-                        <span className="ml-3 align-middle mr-1">Products:</span>
-                    </div> */}
                     <Fragment>
-                    <Form.Group style={{ marginTop: '20px' }}>
-                        <Typeahead
-                        id="basic-typeahead-multiple"
-                        labelKey="name"
-                        multiple
-                        onChange={setMultiSelections}
-                        options={products}
-                        placeholder="Choose products..."
-                        selected={multiSelections}
-                        />
-                    </Form.Group>
+                        <Form.Group style={{ marginTop: '20px' }}>
+                            <Typeahead
+                            id="basic-typeahead-multiple"
+                            labelKey="name"
+                            multiple
+                            onChange={setMultiSelections}
+                            options={products}
+                            placeholder="Choose products..."
+                            selected={multiSelections}
+                            />
+                        </Form.Group>
                     </Fragment>
                     <p className="lead">The quantity ordered will be the standard reorder amount for that product.</p>
                     <p className="lead">An email confirmation will be sent to the manager email for your business.</p>

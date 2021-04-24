@@ -1,4 +1,3 @@
-import { userInfo } from 'os';
 import React, {useState, useEffect} from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
@@ -13,7 +12,6 @@ const EditUser = (props) => {
     const [user, setUser] = useState({});
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
 
     /**
